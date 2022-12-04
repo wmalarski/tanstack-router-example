@@ -66,7 +66,7 @@ export const getBeers = (query: GetBeers = {}) => {
 };
 
 type GetBeer = {
-  id: string;
+  id: number;
 };
 
 export const getBeer = async ({ id }: GetBeer) => {

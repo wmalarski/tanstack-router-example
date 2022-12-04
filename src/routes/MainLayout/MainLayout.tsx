@@ -1,12 +1,12 @@
-import { Link, Outlet } from "@tanstack/react-router";
+import { createRouteConfig, Link, Outlet } from "@tanstack/react-router";
 
-export const MainLayout = () => {
+const MainLayout = () => {
   return (
     <div>
       <nav>
         <Link to="/">Home</Link>
         <Link to="/random">Random</Link>
-        <Link to="/beers/$id" params={{ id: 1 }}>
+        <Link to="/beer/$id" params={{ id: 1 }}>
           Random
         </Link>
       </nav>
@@ -14,3 +14,8 @@ export const MainLayout = () => {
     </div>
   );
 };
+
+export const layoutRoute = createRouteConfig().createRoute({
+  id: "layout",
+  component: MainLayout,
+});
