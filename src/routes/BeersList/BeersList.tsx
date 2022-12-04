@@ -1,14 +1,18 @@
-import { getBeers } from "@services/beers";
+import { getBeers, getBeersKey } from "@services/beers";
+import { queryClient } from "@services/queryClient";
+import { useQuery } from "@tanstack/react-query";
 import { createRouteConfig, useMatch } from "@tanstack/react-router";
 import { z } from "zod";
 
 const BeersList = () => {
-  const { loaderData } = useMatch(beersRoute.id);
+  const { search } = useMatch(beersRoute.id);
+
+  const { data } = useQuery(getBeersKey({ page: search.page }), getBeers);
 
   return (
     <div>
       <span>Beers</span>
-      <pre>{JSON.stringify(loaderData, null, 2)}</pre>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 };
@@ -19,7 +23,10 @@ export const beersRoute = createRouteConfig().createRoute({
   validateSearch: z.object({
     page: z.number().int().min(1).optional(),
   }),
-  loader: ({ search }) => {
-    return getBeers({ page: search.page });
+  loader: async ({ search }) => {
+    const key = getBeersKey({ page: search.page });
+    queryClient.getQueryData(key) ??
+      (await queryClient.prefetchQuery(key, getBeers));
+    return {};
   },
 });
