@@ -1,6 +1,6 @@
+import { getBeers } from "@services/beers";
 import { createRouteConfig, useMatch } from "@tanstack/react-router";
 import { z } from "zod";
-import { getBeers } from "../../services/beers";
 
 const BeersList = () => {
   const { loaderData } = useMatch(beersRoute.id);

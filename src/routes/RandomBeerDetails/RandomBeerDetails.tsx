@@ -1,5 +1,5 @@
+import { getRandomBeer } from "@services/beers";
 import { createRouteConfig, useMatch } from "@tanstack/react-router";
-import { getRandomBeer } from "../../services/beers";
 
 const RandomBeerDetails = () => {
   const { loaderData } = useMatch(randomBeerRoute.id);
