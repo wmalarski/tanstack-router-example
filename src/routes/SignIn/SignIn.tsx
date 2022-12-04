@@ -1,5 +1,7 @@
 import { useAnonService } from "@contexts/SessionContext";
 import { router } from "@routes/Router";
+import { getSessionKey, Session } from "@services/auth";
+import { queryClient } from "@services/queryClient";
 import { useMutation } from "@tanstack/react-query";
 import { createRouteConfig, useRouter } from "@tanstack/react-router";
 
@@ -9,7 +11,7 @@ const SignIn = () => {
 
   const { mutate } = useMutation(anonService.signIn, {
     onSuccess: () => {
-      router.navigate({ to: "/" });
+      router.navigate({ to: "/protected" });
     },
   });
 
@@ -26,11 +28,10 @@ const SignIn = () => {
 export const signInRoute = createRouteConfig().createRoute({
   path: "signIn",
   component: SignIn,
-  action: (...args) => {
-    console.log(args);
-  },
-  beforeLoad: ({ context }) => {
-    if (context.session.status !== "unauthorized") {
+  beforeLoad: () => {
+    const session = queryClient.getQueryData<Session>(getSessionKey());
+
+    if (session?.user) {
       throw router.navigate({ to: "/" });
     }
   },

@@ -80,14 +80,14 @@ export const SessionContextProvider = ({ children }: Props) => {
       return { status: "loading" };
     }
 
-    if ("email" in data) {
+    if (data.user) {
       return {
         status: "authorized",
         service: {
           session: data,
           signOut: async () => {
             await signOut();
-            queryClient.setQueryData(getSessionKey(), { message: "404" });
+            queryClient.setQueryData<Session>(getSessionKey(), {});
           },
         },
       };
@@ -97,7 +97,7 @@ export const SessionContextProvider = ({ children }: Props) => {
       service: {
         signIn: async (args) => {
           const session = await signIn(args);
-          queryClient.setQueryData(getSessionKey(), session);
+          queryClient.setQueryData<Session>(getSessionKey(), session);
         },
       },
     };

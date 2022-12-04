@@ -11,6 +11,7 @@ const MainLayout = () => {
         <Link to="/">Home</Link>
         <Link to="/random">Random</Link>
         <Link to="/signIn">Sign In</Link>
+        <Link to="/protected">Protected</Link>
       </nav>
       <span>{session.status}</span>
       {session.status === "authorized" ? <SignOutButton /> : null}

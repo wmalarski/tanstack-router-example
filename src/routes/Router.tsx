@@ -12,6 +12,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { beerDetailsRoute, beerRoute } from "./BeerDetails/BeerDetails";
 import { beersRoute } from "./BeersList/BeersList";
 import { layoutRoute } from "./MainLayout/MainLayout";
+import { protectedRoute } from "./Protected/Protected";
 import { randomBeerRoute } from "./RandomBeerDetails/RandomBeerDetails";
 import { signInRoute } from "./SignIn/SignIn";
 
@@ -23,6 +24,7 @@ const routeConfig = rootRoute.addChildren([
     randomBeerRoute,
     beerRoute.addChildren([beerDetailsRoute]),
     signInRoute,
+    protectedRoute,
   ]),
 ]);
 
