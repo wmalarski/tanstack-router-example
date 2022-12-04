@@ -6,41 +6,21 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { z } from "zod";
-
-const Navbar = () => {
-  return (
-    <div>
-      <router.Link to="/">Home</router.Link>
-      <router.Link to="/random">Random</router.Link>
-      <router.Link to="/beers/$id" params={{ id: 1 }}>
-        Random
-      </router.Link>
-    </div>
-  );
-};
+import { BeerDetails } from "./BeerDetails/BeerDetails";
+import { BeersList } from "./BeersList/BeersList";
+import { MainLayout } from "./MainLayout/MainLayout";
+import { RandomBeerDetails } from "./RandomBeerDetails/RandomBeerDetails";
 
 const rootRoute = createRouteConfig();
 
 const indexRoute = rootRoute.createRoute({
   path: "/",
-  component: () => {
-    return (
-      <div>
-        <span>Component</span>
-      </div>
-    );
-  },
+  component: BeersList,
 });
 
 const randomRoute = rootRoute.createRoute({
   path: "random",
-  component: () => {
-    return (
-      <div>
-        <span>Random</span>
-      </div>
-    );
-  },
+  component: RandomBeerDetails,
 });
 
 const beersRoute = rootRoute.createRoute({
@@ -51,25 +31,12 @@ const beerRoute = beersRoute.createRoute({
   path: "$id",
   parseParams: (params) => ({ id: z.number().int().parse(+params.id) }),
   stringifyParams: ({ id }) => ({ id: `${id}` }),
-  component: () => {
-    return (
-      <div>
-        <span>Beer</span>
-      </div>
-    );
-  },
+  component: BeerDetails,
 });
 
 const layoutRoute = rootRoute.createRoute({
   id: "layout",
-  component: () => {
-    return (
-      <div>
-        <Navbar />
-        <Outlet />
-      </div>
-    );
-  },
+  component: MainLayout,
 });
 
 const routeConfig = rootRoute.addChildren([
