@@ -9,8 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-router": "0.0.1-beta.28",
+    "@tanstack/react-router-devtools": "0.0.1-beta.19",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
