@@ -13,6 +13,7 @@ import { beerDetailsRoute, beerRoute } from "./BeerDetails/BeerDetails";
 import { beersRoute } from "./BeersList/BeersList";
 import { layoutRoute } from "./MainLayout/MainLayout";
 import { randomBeerRoute } from "./RandomBeerDetails/RandomBeerDetails";
+import { signInRoute } from "./SignIn/SignIn";
 
 const rootRoute = createRouteConfig();
 
@@ -21,10 +22,11 @@ const routeConfig = rootRoute.addChildren([
     beersRoute,
     randomBeerRoute,
     beerRoute.addChildren([beerDetailsRoute]),
+    signInRoute,
   ]),
 ]);
 
-const router = createReactRouter({
+export const router = createReactRouter({
   routeConfig,
   useContext: () => {
     const session = useSessionContext();
@@ -33,14 +35,11 @@ const router = createReactRouter({
 });
 
 declare module "@tanstack/react-router" {
-  interface RouterContext {
-    session: SessionContextValue;
-  }
-}
-
-declare module "@tanstack/react-router" {
   interface RegisterRouter {
     router: typeof router;
+  }
+  interface RouterContext {
+    session: SessionContextValue;
   }
 }
 

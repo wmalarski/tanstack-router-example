@@ -11,11 +11,11 @@ import { createContext, ReactNode, useContext, useMemo } from "react";
 
 type AuthorizedService = {
   session: Session;
-  signOut: () => void;
+  signOut: () => Promise<void>;
 };
 
 type UnauthorizedService = {
-  signIn: (args: SignIn) => void;
+  signIn: (args: SignIn) => Promise<void>;
 };
 
 export type SessionContextValue =
@@ -76,8 +76,6 @@ export const SessionContextProvider = ({ children }: Props) => {
   });
 
   const value = useMemo<SessionContextValue>(() => {
-    console.log("useMemo", data);
-
     if (!data) {
       return { status: "loading" };
     }
