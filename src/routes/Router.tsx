@@ -1,4 +1,8 @@
 import {
+  SessionContextValue,
+  useSessionContext,
+} from "@contexts/SessionContext";
+import {
   createReactRouter,
   createRouteConfig,
   Outlet,
@@ -22,7 +26,17 @@ const routeConfig = rootRoute.addChildren([
 
 const router = createReactRouter({
   routeConfig,
+  useContext: () => {
+    const session = useSessionContext();
+    return { session };
+  },
 });
+
+declare module "@tanstack/react-router" {
+  interface RouterContext {
+    session: SessionContextValue;
+  }
+}
 
 declare module "@tanstack/react-router" {
   interface RegisterRouter {
