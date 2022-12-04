@@ -9,15 +9,6 @@ import {
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createContext, ReactNode, useContext, useMemo } from "react";
 
-type SessionContextState =
-  | {
-      status: "authorized";
-      session: Session;
-    }
-  | {
-      status: "unauthorized";
-    };
-
 type AuthorizedService = {
   session: Session;
   signOut: () => void;
@@ -79,55 +70,39 @@ export const useAnonService = (): UnauthorizedService => {
 export const SessionContextProvider = ({ children }: Props) => {
   const queryClient = useQueryClient();
 
-  const { data } = useQuery<SessionContextState>(
-    getSessionKey(),
-    async () => {
-      const session = await getSession();
-      return session
-        ? { status: "authorized", session }
-        : { status: "unauthorized" };
-    },
-    {
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  );
+  const { data } = useQuery(getSessionKey(), getSession, {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
   const value = useMemo<SessionContextValue>(() => {
     console.log("useMemo", data);
-    switch (data?.status) {
-      case "authorized": {
-        return {
-          status: "authorized",
-          service: {
-            session: data.session,
-            signOut: async () => {
-              await signOut();
-              queryClient.setQueryData(getSessionKey(), {
-                status: "unauthorized",
-              });
-            },
-          },
-        };
-      }
-      case "unauthorized": {
-        return {
-          status: "unauthorized",
-          service: {
-            signIn: async (args) => {
-              const session = await signIn(args);
-              queryClient.setQueryData(getSessionKey(), {
-                status: "authorized",
-                session,
-              });
-            },
-          },
-        };
-      }
-      default: {
-        return { status: "loading" };
-      }
+
+    if (!data) {
+      return { status: "loading" };
     }
+
+    if ("email" in data) {
+      return {
+        status: "authorized",
+        service: {
+          session: data,
+          signOut: async () => {
+            await signOut();
+            queryClient.setQueryData(getSessionKey(), { message: "404" });
+          },
+        },
+      };
+    }
+    return {
+      status: "unauthorized",
+      service: {
+        signIn: async (args) => {
+          const session = await signIn(args);
+          queryClient.setQueryData(getSessionKey(), session);
+        },
+      },
+    };
   }, [data]);
 
   return (
