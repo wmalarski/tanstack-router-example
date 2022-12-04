@@ -17,4 +17,7 @@ export const randomBeerRoute = createRouteConfig().createRoute({
   loader: () => {
     return getRandomBeer();
   },
+  pendingComponent: () => {
+    return <span>Loading Random Beer Details</span>;
+  },
 });

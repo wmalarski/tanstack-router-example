@@ -15,7 +15,7 @@ const MainLayout = () => {
       </nav>
       <span>{session.status}</span>
       {session.status === "authorized" ? <SignOutButton /> : null}
-      <Outlet />
+      {session.status !== "loading" ? <Outlet /> : null}
     </div>
   );
 };
@@ -23,4 +23,7 @@ const MainLayout = () => {
 export const layoutRoute = createRouteConfig().createRoute({
   id: "layout",
   component: MainLayout,
+  pendingComponent: () => {
+    return <span>Loading Main Layout</span>;
+  },
 });

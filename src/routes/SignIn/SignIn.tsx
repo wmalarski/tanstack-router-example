@@ -35,4 +35,7 @@ export const signInRoute = createRouteConfig().createRoute({
       throw router.navigate({ to: "/" });
     }
   },
+  pendingComponent: () => {
+    return <span>Loading Sign In Pending</span>;
+  },
 });

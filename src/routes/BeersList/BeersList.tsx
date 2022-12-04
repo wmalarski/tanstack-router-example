@@ -43,4 +43,7 @@ export const beersRoute = createRouteConfig().createRoute({
       queryClient.setQueryData(getBeerKey({ id: beer.id }), beer);
     });
   },
+  pendingComponent: () => {
+    return <span>Loading Beers List</span>;
+  },
 });

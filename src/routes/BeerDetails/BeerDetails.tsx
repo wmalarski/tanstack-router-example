@@ -32,4 +32,7 @@ export const beerDetailsRoute = beerRoute.createRoute({
       (await queryClient.prefetchQuery(key, getBeer));
     return {};
   },
+  pendingComponent: () => {
+    return <span>Loading Beer Details</span>;
+  },
 });
