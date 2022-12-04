@@ -6,9 +6,6 @@ const MainLayout = () => {
       <nav>
         <Link to="/">Home</Link>
         <Link to="/random">Random</Link>
-        <Link to="/beer/$id" params={{ id: 1 }}>
-          Random
-        </Link>
       </nav>
       <Outlet />
     </div>
