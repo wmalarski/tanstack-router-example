@@ -1,24 +1,15 @@
-import {
-  SessionContextValue,
-  useSessionContext,
-} from "@contexts/SessionContext";
-import {
-  createReactRouter,
-  createRouteConfig,
-  Outlet,
-  RouterProvider,
-} from "@tanstack/react-router";
+import { useSessionContext } from "@contexts/SessionContext";
+import { Outlet, ReactRouter, RouterProvider } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { beerDetailsRoute, beerRoute } from "./BeerDetails/BeerDetails";
 import { beersRoute } from "./BeersList/BeersList";
 import { layoutRoute } from "./MainLayout/MainLayout";
 import { protectedRoute } from "./Protected/Protected";
 import { randomBeerRoute } from "./RandomBeerDetails/RandomBeerDetails";
+import { rootRoute } from "./Root/Root";
 import { signInRoute } from "./SignIn/SignIn";
 
-const rootRoute = createRouteConfig();
-
-const routeConfig = rootRoute.addChildren([
+const routeTree = rootRoute.addChildren([
   layoutRoute.addChildren([
     beersRoute,
     randomBeerRoute,
@@ -28,21 +19,23 @@ const routeConfig = rootRoute.addChildren([
   ]),
 ]);
 
-export const router = createReactRouter({
-  routeConfig,
-  useContext: () => {
+export const router = new ReactRouter({
+  routeTree,
+  context: () => {
     const session = useSessionContext();
     return { session };
   },
 });
+// useContext: () => {
+// },
 
 declare module "@tanstack/react-router" {
-  interface RegisterRouter {
+  interface Register {
     router: typeof router;
   }
-  interface RouterContext {
-    session: SessionContextValue;
-  }
+  // interface RouterContext {
+  //   session: SessionContextValue;
+  // }
 }
 
 export const Router = () => {

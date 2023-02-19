@@ -1,7 +1,7 @@
 import { getBeer, getBeerKey } from "@services/beers";
 import { queryClient } from "@services/queryClient";
 import { useQuery } from "@tanstack/react-query";
-import { createRouteConfig, useMatch } from "@tanstack/react-router";
+import { Route, useMatch } from "@tanstack/react-router";
 import { z } from "zod";
 
 const BeerDetails = () => {
@@ -17,8 +17,9 @@ const BeerDetails = () => {
   );
 };
 
-export const beerRoute = createRouteConfig().createRoute({
+export const beerRoute = new Route({
   path: "beer",
+  getParentRoute: () => rootRoute,
 });
 
 export const beerDetailsRoute = beerRoute.createRoute({
