@@ -1,4 +1,4 @@
-import { beersRoute } from "@routes/beers";
+import { rootRoute } from "@routes/__root";
 import { getBeer, getBeerKey } from "@services/beers";
 import { queryClient } from "@services/queryClient";
 import { Loader } from "@tanstack/react-loaders";
@@ -7,8 +7,8 @@ import { Route, useParams } from "@tanstack/react-router";
 import { QueryFunctionResult } from "@utils/types";
 import { z } from "zod";
 
-const BeerDetails = () => {
-  const { id } = useParams({ from: beerDetailsRoute.id });
+const Beer = () => {
+  const { id } = useParams({ from: beerRoute.id });
 
   const { data } = useQuery(getBeerKey({ id }), getBeer);
 
@@ -31,18 +31,12 @@ export const beerLoader = new Loader({
   },
 });
 
-export const beerDetailsRoute = new Route({
+export const beerRoute = new Route({
   path: "beers/$id",
-  getParentRoute: () => beersRoute,
+  getParentRoute: () => rootRoute,
   parseParams: (params) => ({ id: z.coerce.number().int().parse(params.id) }),
   stringifyParams: ({ id }) => ({ id: `${id}` }),
-  component: BeerDetails,
-  // loader: async ({ params: { id }, preload }) => {
-  //   return beerLoader.load({
-  //     variables: id,
-  //     preload,
-  //   });
-  // },
+  component: Beer,
   pendingComponent: () => {
     return <span>Loading Beer Details</span>;
   },

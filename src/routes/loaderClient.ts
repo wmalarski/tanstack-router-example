@@ -1,6 +1,6 @@
 import { LoaderClient } from "@tanstack/react-loaders";
-import { beerLoader } from "./beers/beer/beer";
-import { beersLoader } from "./beers/beers";
+import { beerLoader } from "./Beer/Beer";
+import { beersLoader } from "./Beers/Beers";
 
 export const loaderClient = new LoaderClient({
   loaders: [beerLoader, beersLoader],

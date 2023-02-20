@@ -1,3 +1,4 @@
+import { rootRoute } from "@routes/__root";
 import { getBeerKey, getBeers, getBeersKey } from "@services/beers";
 import { queryClient } from "@services/queryClient";
 import type { Beer } from "@services/types";
@@ -6,9 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, Route, useSearch } from "@tanstack/react-router";
 import { QueryFunctionResult } from "@utils/types";
 import { z } from "zod";
-import { beersLayoutRoute } from ".";
 
-const BeersList = () => {
+const Beers = () => {
   const { page } = useSearch({ from: beersIndexRoute.id });
 
   const { data } = useQuery(getBeersKey({ page }), getBeers);
@@ -40,17 +40,11 @@ export const beersLoader = new Loader({
 
 export const beersIndexRoute = new Route({
   path: "/",
-  component: BeersList,
+  component: Beers,
   validateSearch: z.object({
     page: z.number().int().min(1).optional(),
   }),
-  getParentRoute: () => beersLayoutRoute,
-  // loader: async ({ params: { id }, preload }) => {
-  //   return beersLoader.load({
-  //     variables: id,
-  //     preload,
-  //   });
-  // },
+  getParentRoute: () => rootRoute,
   onLoaded: ({ search }) => {
     const key = getBeersKey({ page: search.page });
     const data = queryClient.getQueryData<Beer[]>(key);

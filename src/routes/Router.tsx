@@ -1,21 +1,20 @@
 import { useSessionContext } from "@contexts/SessionContext";
 import { LoaderClientProvider } from "@tanstack/react-loaders";
 import { ReactRouter, RouterProvider } from "@tanstack/react-router";
-import { beersLayoutRoute } from "./beers";
-import { beerDetailsRoute } from "./beers/beer/beer";
-import { beersIndexRoute } from "./beers/beers";
+import { beerRoute } from "./Beer/Beer";
+import { beersIndexRoute } from "./Beers/Beers";
 import { loaderClient } from "./loaderClient";
 import { layoutRoute } from "./MainLayout/MainLayout";
-import { protectedRoute } from "./protected/protected";
-import { randomBeerRoute } from "./random/random";
-import { signInRoute } from "./signIn/signIn";
+import { protectedRoute } from "./Protected/Protected";
+import { randomRoute } from "./Random/Random";
+import { signInRoute } from "./SignIn/SignIn";
 import { rootRoute } from "./__root";
 
 const routeTree = rootRoute.addChildren([
   layoutRoute.addChildren([
     beersIndexRoute,
-    randomBeerRoute,
-    beersLayoutRoute.addChildren([beerDetailsRoute]),
+    randomRoute,
+    beerRoute,
     signInRoute,
     protectedRoute,
   ]),
