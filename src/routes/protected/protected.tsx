@@ -1,7 +1,8 @@
 import { router } from "@routes/Router";
+import { rootRoute } from "@routes/__root";
 import { getSession, getSessionKey, Session } from "@services/auth";
 import { queryClient } from "@services/queryClient";
-import { createRouteConfig } from "@tanstack/react-router";
+import { Route } from "@tanstack/react-router";
 
 const Protected = () => {
   return (
@@ -11,10 +12,11 @@ const Protected = () => {
   );
 };
 
-export const protectedRoute = createRouteConfig().createRoute({
+export const protectedRoute = new Route({
   path: "protected",
   component: Protected,
-  beforeLoad: async ({ context }) => {
+  getParentRoute: () => rootRoute,
+  beforeLoad: async () => {
     const session =
       queryClient.getQueryData<Session>(getSessionKey()) ??
       (await queryClient.fetchQuery(getSessionKey(), getSession));
@@ -23,9 +25,9 @@ export const protectedRoute = createRouteConfig().createRoute({
       throw router.navigate({ to: "/" });
     }
   },
-  loader: async ({}) => {
-    return {};
-  },
+  // loader: async ({}) => {
+  //   return {};
+  // },
   pendingComponent: () => {
     return <span>Loading Protected</span>;
   },

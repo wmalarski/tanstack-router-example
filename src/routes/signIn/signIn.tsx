@@ -1,9 +1,10 @@
 import { useAnonService } from "@contexts/SessionContext";
 import { router } from "@routes/Router";
+import { rootRoute } from "@routes/__root";
 import { getSessionKey, Session } from "@services/auth";
 import { queryClient } from "@services/queryClient";
 import { useMutation } from "@tanstack/react-query";
-import { createRouteConfig, useRouter } from "@tanstack/react-router";
+import { Route, useRouter } from "@tanstack/react-router";
 
 const SignIn = () => {
   const router = useRouter();
@@ -25,7 +26,8 @@ const SignIn = () => {
   );
 };
 
-export const signInRoute = createRouteConfig().createRoute({
+export const signInRoute = new Route({
+  getParentRoute: () => rootRoute,
   path: "signIn",
   component: SignIn,
   beforeLoad: () => {

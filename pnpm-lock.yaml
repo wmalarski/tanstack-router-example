@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@tanstack/react-loaders': 0.0.1-beta.53
   '@tanstack/react-query': ^4.24.9
   '@tanstack/react-query-devtools': ^4.24.9
   '@tanstack/react-router': 0.0.1-beta.83
@@ -16,6 +17,7 @@ specifiers:
   zod: ^3.20.6
 
 dependencies:
+  '@tanstack/react-loaders': 0.0.1-beta.53_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query': 4.24.9_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query-devtools': 4.24.9_bzphmdwvicyhtx5eo3azinrh54
   '@tanstack/react-router': 0.0.1-beta.83_biqbaboplfbrettd7655fr4n2y
@@ -504,6 +506,13 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
+  /@tanstack/loaders/0.0.1-beta.52:
+    resolution: {integrity: sha512-6J1QHbsb1b4mdu/2YjSwRDC1wtF8bvkDmcmV6P3kUskwvblmESFttdX209s5wjaWkFCiGeyUAK74YRkjTmeQew==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@tanstack/store': 0.0.1-beta.52
+    dev: false
+
   /@tanstack/match-sorter-utils/8.7.0:
     resolution: {integrity: sha512-OgfIPMHTfuw9JGcXCCoEHWFP/eSP2eyhCYwkrFnWBM3NbUPAgOlFP11DbM7cozDRVB0XbPr1tD4pLAtWKlVUVg==}
     engines: {node: '>=12'}
@@ -513,6 +522,20 @@ packages:
 
   /@tanstack/query-core/4.24.9:
     resolution: {integrity: sha512-pZQ2NpdaHzx8gPPkAPh06d6zRkjfonUzILSYBXrdHDapP2eaBbGsx5L4/dMF+fyAglFzQZdDDzZgAykbM20QVw==}
+    dev: false
+
+  /@tanstack/react-loaders/0.0.1-beta.53_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-V+zh2bfjJILXEQOnzBjZKIMWAYK0hbLIw0pMfAXUPNc0kXTgK0NzCYHUik/ls6owxKFyvhYZvROVwlfbEwMxIQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      '@tanstack/loaders': 0.0.1-beta.52
+      '@tanstack/react-store': 0.0.1-beta.53_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      tiny-invariant: 1.3.1
     dev: false
 
   /@tanstack/react-query-devtools/4.24.9_bzphmdwvicyhtx5eo3azinrh54:
@@ -576,6 +599,19 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
+  /@tanstack/react-store/0.0.1-beta.53_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-cQBT/wZmkcIegfLiQDzLKWWKwdqWbvRjkoIss5NPf4Xh470TKa+f2shnQa32BFpRO897jFhLP4cykIBNhtK/Dg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      '@tanstack/loaders': 0.0.1-beta.52
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
+
   /@tanstack/react-store/0.0.1-beta.81_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-wN4YVYzWQOvNKBnS+3+JINkR8qx93tX52iqzJfzzt3b7e3oqlkl3X3SnpGH1/hRwMNklMxvT7dIg//qfWGzUhA==}
     engines: {node: '>=12'}
@@ -597,6 +633,13 @@ packages:
       '@tanstack/store': 0.0.1-beta.81
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
+    dev: false
+
+  /@tanstack/store/0.0.1-beta.52:
+    resolution: {integrity: sha512-3/5XqeG09sCJnakHpq8qgXjdVpm97aITbi1wfbjLGXdVsss62zpJAvc4vL8ccHf+J/OmoS4dJTNuEZ0alywZtg==}
+    engines: {node: '>=12'}
+    dependencies:
+      immer: 9.0.19
     dev: false
 
   /@tanstack/store/0.0.1-beta.81:
@@ -796,6 +839,10 @@ packages:
     dependencies:
       function-bind: 1.1.1
     dev: true
+
+  /immer/9.0.19:
+    resolution: {integrity: sha512-eY+Y0qcsB4TZKwgQzLaE/lqYMlKhv5J9dyd2RhhtGhNo2njPXDqU9XPfcNfa3MIDsdtZt5KlkIsirlo4dHsWdQ==}
+    dev: false
 
   /is-core-module/2.11.0:
     resolution: {integrity: sha512-RRjxlvLDkD1YJwDbroBHMb+cukurkDWNyHx7D3oNB5x9rb5ogcksMC5wHCadcXoo67gVr/+3GFySh3134zi6rw==}

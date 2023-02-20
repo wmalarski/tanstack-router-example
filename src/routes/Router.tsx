@@ -1,19 +1,21 @@
 import { useSessionContext } from "@contexts/SessionContext";
-import { Outlet, ReactRouter, RouterProvider } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import { beerDetailsRoute, beerRoute } from "./BeerDetails/BeerDetails";
-import { beersRoute } from "./BeersList/BeersList";
+import { LoaderClientProvider } from "@tanstack/react-loaders";
+import { ReactRouter, RouterProvider } from "@tanstack/react-router";
+import { beersLayoutRoute } from "./beers";
+import { beerDetailsRoute } from "./beers/beer/beer";
+import { beersIndexRoute } from "./beers/beers";
+import { loaderClient } from "./loaderClient";
 import { layoutRoute } from "./MainLayout/MainLayout";
-import { protectedRoute } from "./Protected/Protected";
-import { randomBeerRoute } from "./RandomBeerDetails/RandomBeerDetails";
-import { rootRoute } from "./Root/Root";
-import { signInRoute } from "./SignIn/SignIn";
+import { protectedRoute } from "./protected/protected";
+import { randomBeerRoute } from "./random/random";
+import { signInRoute } from "./signIn/signIn";
+import { rootRoute } from "./__root";
 
 const routeTree = rootRoute.addChildren([
   layoutRoute.addChildren([
-    beersRoute,
+    beersIndexRoute,
     randomBeerRoute,
-    beerRoute.addChildren([beerDetailsRoute]),
+    beersLayoutRoute.addChildren([beerDetailsRoute]),
     signInRoute,
     protectedRoute,
   ]),
@@ -40,9 +42,10 @@ declare module "@tanstack/react-router" {
 
 export const Router = () => {
   return (
-    <RouterProvider router={router}>
-      <Outlet />
-      <TanStackRouterDevtools position="bottom-right" />
-    </RouterProvider>
+    <LoaderClientProvider loaderClient={loaderClient}>
+      <RouterProvider router={router} />
+    </LoaderClientProvider>
+    // <Outlet />
+    // <TanStackRouterDevtools position="bottom-right" />
   );
 };

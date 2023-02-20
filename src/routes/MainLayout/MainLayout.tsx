@@ -1,5 +1,6 @@
 import { useSessionContext } from "@contexts/SessionContext";
-import { createRouteConfig, Link, Outlet } from "@tanstack/react-router";
+import { rootRoute } from "@routes/__root";
+import { Link, Outlet, Route } from "@tanstack/react-router";
 import { SignOutButton } from "./SignOutButton/SignOutButton";
 
 const MainLayout = () => {
@@ -20,8 +21,9 @@ const MainLayout = () => {
   );
 };
 
-export const layoutRoute = createRouteConfig().createRoute({
+export const layoutRoute = new Route({
   id: "layout",
+  getParentRoute: () => rootRoute,
   component: MainLayout,
   pendingComponent: () => {
     return <span>Loading Main Layout</span>;
