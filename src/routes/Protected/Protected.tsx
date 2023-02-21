@@ -25,9 +25,6 @@ export const protectedRoute = new Route({
       throw router.navigate({ to: "/" });
     }
   },
-  // loader: async ({}) => {
-  //   return {};
-  // },
   pendingComponent: () => {
     return <span>Loading Protected</span>;
   },

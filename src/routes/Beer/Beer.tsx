@@ -21,7 +21,7 @@ const Beer = () => {
 };
 
 export const beerLoader = new Loader({
-  key: "invoice",
+  key: "beers",
   loader: async (id: number) => {
     const key = getBeerKey({ id });
     const invoice =
@@ -36,6 +36,9 @@ export const beerRoute = new Route({
   getParentRoute: () => rootRoute,
   parseParams: (params) => ({ id: z.coerce.number().int().parse(params.id) }),
   stringifyParams: ({ id }) => ({ id: `${id}` }),
+  beforeLoad: async ({ router, match }) => {
+    await beerLoader.load({});
+  },
   component: Beer,
   pendingComponent: () => {
     return <span>Loading Beer Details</span>;

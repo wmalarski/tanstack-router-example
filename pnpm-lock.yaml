@@ -6,6 +6,7 @@ specifiers:
   '@tanstack/react-query-devtools': ^4.24.9
   '@tanstack/react-router': 0.0.1-beta.83
   '@tanstack/react-router-devtools': 0.0.1-beta.83
+  '@tanstack/router': 0.0.1-beta.83
   '@types/react': ^18.0.28
   '@types/react-dom': ^18.0.11
   '@vitejs/plugin-react': ^3.1.0
@@ -22,6 +23,7 @@ dependencies:
   '@tanstack/react-query-devtools': 4.24.9_bzphmdwvicyhtx5eo3azinrh54
   '@tanstack/react-router': 0.0.1-beta.83_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-router-devtools': 0.0.1-beta.83_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/router': 0.0.1-beta.83
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   zod: 3.20.6

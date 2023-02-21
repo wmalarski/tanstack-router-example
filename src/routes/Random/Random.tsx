@@ -24,10 +24,10 @@ export const randomLoader = new Loader({
 export const randomRoute = new Route({
   path: "random",
   component: Random,
+  beforeLoad: async () => {
+    await randomLoader.load();
+  },
   getParentRoute: () => rootRoute,
-  // loader: ({ preload }) => {
-  //   return randomLoader.load({ preload });
-  // },
   pendingComponent: () => {
     return <span>Loading Random Beer Details</span>;
   },
