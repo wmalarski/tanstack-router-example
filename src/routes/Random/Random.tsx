@@ -4,12 +4,12 @@ import { Loader, useLoader } from "@tanstack/react-loaders";
 import { Route } from "@tanstack/react-router";
 
 const Random = () => {
-  const [loaderData] = useLoader({ key: randomRoute.id });
+  const [loaderData, instance] = useLoader({ key: randomLoader.key });
 
   return (
     <div>
       <span>Random</span>
-      <pre>{JSON.stringify(loaderData, null, 2)}</pre>
+      <pre>{JSON.stringify(loaderData.data, null, 2)}</pre>
     </div>
   );
 };

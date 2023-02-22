@@ -22,7 +22,6 @@ const Beers = () => {
           <h3>{beer.description}</h3>
         </Link>
       ))}
-      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 };
