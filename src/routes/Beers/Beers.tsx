@@ -1,4 +1,4 @@
-import { rootRoute } from "@routes/__root";
+import { rootRoute } from "@routes/Root/Root";
 import { getBeerKey, getBeers, getBeersKey } from "@services/beers";
 import { queryClient } from "@services/queryClient";
 import type { Beer } from "@services/types";
@@ -28,7 +28,7 @@ const Beers = () => {
 };
 
 export const beersLoader = new Loader({
-  key: "/",
+  key: "beers",
   loader: async (page: number) => {
     const key = getBeersKey({ page });
     const invoices =
@@ -42,9 +42,12 @@ export const beersIndexRoute = new Route({
   path: "/",
   component: Beers,
   validateSearch: z.object({
-    page: z.number().int().min(1).optional(),
+    page: z.number().int().min(1).optional().default(1),
   }),
   getParentRoute: () => rootRoute,
+  onLoad: ({ search }) => {
+    return beersLoader.load(search.page);
+  },
   onLoaded: ({ search }) => {
     const key = getBeersKey({ page: search.page });
     const data = queryClient.getQueryData<Beer[]>(key);

@@ -1,5 +1,5 @@
+import { rootRoute } from "@routes/Root/Root";
 import { router } from "@routes/Router";
-import { rootRoute } from "@routes/__root";
 import { getSession, getSessionKey, Session } from "@services/auth";
 import { queryClient } from "@services/queryClient";
 import { Route } from "@tanstack/react-router";

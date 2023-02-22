@@ -1,9 +1,8 @@
 import { useSessionContext } from "@contexts/SessionContext";
-import { rootRoute } from "@routes/__root";
-import { Link, Outlet, Route } from "@tanstack/react-router";
+import { Link, Outlet, RootRoute } from "@tanstack/react-router";
 import { SignOutButton } from "./SignOutButton/SignOutButton";
 
-const MainLayout = () => {
+const Root = () => {
   const session = useSessionContext();
 
   return (
@@ -14,18 +13,13 @@ const MainLayout = () => {
         <Link to="/signIn">Sign In</Link>
         <Link to="/protected">Protected</Link>
       </nav>
-      <span>{session.status}</span>
+      Root Route
       {session.status === "authorized" ? <SignOutButton /> : null}
-      {session.status !== "loading" ? <Outlet /> : null}
+      <Outlet />
     </div>
   );
 };
 
-export const layoutRoute = new Route({
-  id: "layout",
-  getParentRoute: () => rootRoute,
-  component: MainLayout,
-  pendingComponent: () => {
-    return <span>Loading Main Layout</span>;
-  },
+export const rootRoute = new RootRoute({
+  component: Root,
 });

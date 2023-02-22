@@ -1,4 +1,4 @@
-import { rootRoute } from "@routes/__root";
+import { rootRoute } from "@routes/Root/Root";
 import { getRandomBeer } from "@services/beers";
 import { Loader, useLoader } from "@tanstack/react-loaders";
 import { Route } from "@tanstack/react-router";
@@ -24,8 +24,8 @@ export const randomLoader = new Loader({
 export const randomRoute = new Route({
   path: "random",
   component: Random,
-  beforeLoad: async () => {
-    await randomLoader.load();
+  onLoad: () => {
+    return randomLoader.load();
   },
   getParentRoute: () => rootRoute,
   pendingComponent: () => {

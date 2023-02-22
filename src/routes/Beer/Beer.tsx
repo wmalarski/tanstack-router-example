@@ -1,4 +1,4 @@
-import { rootRoute } from "@routes/__root";
+import { rootRoute } from "@routes/Root/Root";
 import { getBeer, getBeerKey } from "@services/beers";
 import { queryClient } from "@services/queryClient";
 import { Loader } from "@tanstack/react-loaders";
@@ -21,7 +21,7 @@ const Beer = () => {
 };
 
 export const beerLoader = new Loader({
-  key: "beers",
+  key: "beer",
   loader: async (id: number) => {
     const key = getBeerKey({ id });
     const invoice =
@@ -36,8 +36,8 @@ export const beerRoute = new Route({
   getParentRoute: () => rootRoute,
   parseParams: (params) => ({ id: z.coerce.number().int().parse(params.id) }),
   stringifyParams: ({ id }) => ({ id: `${id}` }),
-  beforeLoad: async ({ router, match }) => {
-    await beerLoader.load({});
+  onLoad: ({ params }) => {
+    return beerLoader.load(params.id);
   },
   component: Beer,
   pendingComponent: () => {
