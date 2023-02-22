@@ -1,3 +1,11 @@
+export type User = {
+  email: string;
+};
+
+export type Session = {
+  user?: User;
+};
+
 export interface Beer {
   id: number;
   name: string;

@@ -1,9 +1,10 @@
-import { useSessionContext } from "@contexts/SessionContext";
+import { getSession } from "@services/auth";
+import { Loader, useLoader } from "@tanstack/react-loaders";
 import { Link, Outlet, RootRoute } from "@tanstack/react-router";
 import { SignOutButton } from "./SignOutButton/SignOutButton";
 
 const Root = () => {
-  const session = useSessionContext();
+  const [session] = useLoader({ key: sessionLoader.key });
 
   return (
     <div>
@@ -14,11 +15,18 @@ const Root = () => {
         <Link to="/protected">Protected</Link>
       </nav>
       Root Route
-      {session.status === "authorized" ? <SignOutButton /> : null}
+      {session.status === "success" ? <SignOutButton /> : null}
       <Outlet />
     </div>
   );
 };
+
+export const sessionLoader = new Loader({
+  key: "session",
+  loader: () => {
+    return getSession();
+  },
+});
 
 export const rootRoute = new RootRoute({
   component: Root,

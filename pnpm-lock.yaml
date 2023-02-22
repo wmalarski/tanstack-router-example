@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@tanstack/react-actions': 0.0.1-beta.53
   '@tanstack/react-loaders': 0.0.1-beta.53
   '@tanstack/react-query': ^4.24.9
   '@tanstack/react-query-devtools': ^4.24.9
@@ -18,6 +19,7 @@ specifiers:
   zod: ^3.20.6
 
 dependencies:
+  '@tanstack/react-actions': 0.0.1-beta.53_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-loaders': 0.0.1-beta.53_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query': 4.24.9_biqbaboplfbrettd7655fr4n2y
   '@tanstack/react-query-devtools': 4.24.9_bzphmdwvicyhtx5eo3azinrh54
@@ -508,6 +510,14 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
+  /@tanstack/actions/0.0.1-beta.52:
+    resolution: {integrity: sha512-LILCe3gxLh42EHTADIocanjkY0CKNo4LU6oElgi4sGzFtNawZLxCg64mEy55JUiQx8aBsxgSduvSpXMObjKy8Q==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@tanstack/store': 0.0.1-beta.52
+      tiny-invariant: 1.3.1
+    dev: false
+
   /@tanstack/loaders/0.0.1-beta.52:
     resolution: {integrity: sha512-6J1QHbsb1b4mdu/2YjSwRDC1wtF8bvkDmcmV6P3kUskwvblmESFttdX209s5wjaWkFCiGeyUAK74YRkjTmeQew==}
     engines: {node: '>=12'}
@@ -524,6 +534,19 @@ packages:
 
   /@tanstack/query-core/4.24.9:
     resolution: {integrity: sha512-pZQ2NpdaHzx8gPPkAPh06d6zRkjfonUzILSYBXrdHDapP2eaBbGsx5L4/dMF+fyAglFzQZdDDzZgAykbM20QVw==}
+    dev: false
+
+  /@tanstack/react-actions/0.0.1-beta.53_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-OfefGks2ZBD35qP3KuaLPXepenprF3YSZNpSMapTx9KrxSmvm3RxqXs11cvc5yuxKxdNz6b9EntSLKefon9R9g==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      '@tanstack/actions': 0.0.1-beta.52
+      '@tanstack/react-store': 0.0.1-beta.53_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@tanstack/react-loaders/0.0.1-beta.53_biqbaboplfbrettd7655fr4n2y:

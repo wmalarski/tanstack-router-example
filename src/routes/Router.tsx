@@ -1,4 +1,3 @@
-import { useSessionContext } from "@contexts/SessionContext";
 import { LoaderClientProvider } from "@tanstack/react-loaders";
 import { ReactRouter, RouterProvider } from "@tanstack/react-router";
 import { beerRoute } from "./Beer/Beer";
@@ -19,21 +18,12 @@ const routeTree = rootRoute.addChildren([
 
 export const router = new ReactRouter({
   routeTree,
-  context: () => {
-    const session = useSessionContext();
-    return { session };
-  },
 });
-// useContext: () => {
-// },
 
 declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }
-  // interface RouterContext {
-  //   session: SessionContextValue;
-  // }
 }
 
 export const Router = () => {
@@ -41,7 +31,6 @@ export const Router = () => {
     <LoaderClientProvider loaderClient={loaderClient}>
       <RouterProvider router={router} />
     </LoaderClientProvider>
-    // <Outlet />
     // <TanStackRouterDevtools position="bottom-right" />
   );
 };

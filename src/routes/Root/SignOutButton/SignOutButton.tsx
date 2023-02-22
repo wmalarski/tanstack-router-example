@@ -1,24 +1,30 @@
-import { useAuthService } from "@contexts/SessionContext";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "@tanstack/react-router";
+import { router } from "@routes/Router";
+import { signOut } from "@services/auth";
+import { Action, useAction } from "@tanstack/react-actions";
+import { sessionLoader } from "../Root";
 
 export const SignOutButton = () => {
-  const router = useRouter();
-  const authService = useAuthService();
-
-  const { mutate } = useMutation(authService.signOut, {
-    onSuccess: () => {
-      router.navigate({ to: "/" });
-    },
-  });
+  const { submit } = useAction(signOutAction);
 
   return (
     <button
       onClick={() => {
-        mutate();
+        submit();
       }}
     >
       Sign Out
     </button>
   );
 };
+
+const signOutAction = new Action({
+  key: "signOut",
+  action: () => {
+    return signOut();
+  },
+  onEachSuccess: () => {
+    sessionLoader.invalidate();
+
+    router.navigate({ to: "/" });
+  },
+});

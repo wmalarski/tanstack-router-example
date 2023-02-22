@@ -1,39 +1,37 @@
 import type { QueryFunction } from "@tanstack/react-query";
+import { Session } from "./types";
 
 const delay = 2000;
 const localStorageKey = "auth_client";
 
-export type User = {
-  email: string;
-};
-
-export type Session = {
-  user?: User;
-};
-
-export type SignIn = {
+export type SignInArgs = {
   email: string;
   password: string;
 };
 
-export const signIn = (args: SignIn): Promise<Session> => {
+export const signIn = (args: SignInArgs): Promise<Session> => {
   localStorage.setItem(localStorageKey, JSON.stringify(args.email));
   return new Promise((resolve) =>
     setTimeout(() => resolve({ user: { email: args.email } }), delay)
   );
 };
 
-type GetSessionKey = ["getSession"];
+export const getSession = async (): Promise<Session | null> => {
+  const email = localStorage.getItem(localStorageKey);
+  return new Promise((resolve) =>
+    setTimeout(() => resolve(email ? { user: { email } } : null), delay)
+  );
+};
 
-export const getSessionKey = (): GetSessionKey => {
+export const getSessionKey = () => {
   return ["getSession"];
 };
 
-export const getSession: QueryFunction<Session, GetSessionKey> = async () => {
-  const email = localStorage.getItem(localStorageKey);
-  return new Promise((resolve) =>
-    setTimeout(() => resolve(email ? { user: { email } } : {}), delay)
-  );
+export const getSessionQuery: QueryFunction<
+  Session | null,
+  ReturnType<typeof getSessionKey>
+> = async () => {
+  return getSession();
 };
 
 export const signOut = async () => {

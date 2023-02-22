@@ -10,6 +10,7 @@
     "types": "tsc --noEmit"
   },
   "dependencies": {
+    "@tanstack/react-actions": "0.0.1-beta.53",
     "@tanstack/react-loaders": "0.0.1-beta.53",
     "@tanstack/react-query": "^4.24.9",
     "@tanstack/react-query-devtools": "^4.24.9",

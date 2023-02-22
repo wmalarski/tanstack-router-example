@@ -1,37 +1,47 @@
-import { useAnonService } from "@contexts/SessionContext";
-import { rootRoute } from "@routes/Root/Root";
+import { rootRoute, sessionLoader } from "@routes/Root/Root";
 import { router } from "@routes/Router";
-import { getSessionKey, Session } from "@services/auth";
-import { queryClient } from "@services/queryClient";
-import { useMutation } from "@tanstack/react-query";
-import { Route, useRouter } from "@tanstack/react-router";
+import { signIn, SignInArgs } from "@services/auth";
+import { Action, useAction } from "@tanstack/react-actions";
+import { Route } from "@tanstack/react-router";
 
 const SignIn = () => {
-  const router = useRouter();
-  const anonService = useAnonService();
-
-  const { mutate } = useMutation(anonService.signIn, {
-    onSuccess: () => {
-      router.navigate({ to: "/protected" });
-    },
-  });
+  const { submit } = useAction(signInAction);
 
   return (
     <div>
       <span>SignIn</span>
-      <button onClick={() => mutate({ email: "email", password: "password" })}>
+      <button
+        onClick={() =>
+          submit({
+            email: "email",
+            password: "password",
+          })
+        }
+      >
         Sign In
       </button>
     </div>
   );
 };
 
+const signInAction = new Action({
+  key: "signIn",
+  action: (args: SignInArgs) => {
+    return signIn(args);
+  },
+  onEachSuccess: () => {
+    sessionLoader.invalidate();
+
+    router.navigate({ to: "/protected" });
+  },
+});
+
 export const signInRoute = new Route({
   getParentRoute: () => rootRoute,
   path: "signIn",
   component: SignIn,
-  beforeLoad: () => {
-    const session = queryClient.getQueryData<Session>(getSessionKey());
+  beforeLoad: async () => {
+    const session = await sessionLoader.load();
 
     if (session?.user) {
       throw router.navigate({ to: "/" });
