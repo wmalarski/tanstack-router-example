@@ -8,10 +8,10 @@ import { Route } from "@tanstack/react-router";
 const SignIn = () => {
   const mutation = useMutation({
     mutationFn: signIn,
-    onSuccess: () => {
-      loaderClient.invalidateLoader({ key: "session" });
+    onSuccess: async () => {
+      await loaderClient.invalidateLoader({ key: "session" });
 
-      router.navigate({ to: "/protected" });
+      await router.navigate({ to: "/protected" });
     },
   });
 

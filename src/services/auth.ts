@@ -10,16 +10,20 @@ export type SignInArgs = {
 };
 
 export const signIn = (args: SignInArgs): Promise<Session> => {
-  localStorage.setItem(localStorageKey, JSON.stringify(args.email));
   return new Promise((resolve) =>
-    setTimeout(() => resolve({ user: { email: args.email } }), delay)
+    setTimeout(() => {
+      localStorage.setItem(localStorageKey, JSON.stringify(args.email));
+      resolve({ user: { email: args.email } });
+    }, delay),
   );
 };
 
 export const getSession = async (): Promise<Session | null> => {
-  const email = localStorage.getItem(localStorageKey);
   return new Promise((resolve) =>
-    setTimeout(() => resolve(email ? { user: { email } } : null), delay)
+    setTimeout(() => {
+      const email = localStorage.getItem(localStorageKey);
+      resolve(email ? { user: { email } } : null);
+    }, delay),
   );
 };
 
@@ -35,6 +39,10 @@ export const getSessionQuery: QueryFunction<
 };
 
 export const signOut = async () => {
-  localStorage.removeItem(localStorageKey);
-  return new Promise((resolve) => setTimeout(() => resolve(void 0), delay));
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      localStorage.removeItem(localStorageKey);
+      resolve(void 0);
+    }, delay),
+  );
 };

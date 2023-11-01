@@ -23,8 +23,6 @@ export const protectedRoute = new Route({
       queryClient.getQueryData<Session>(queryKey) ??
       (await queryClient.fetchQuery({ queryKey, queryFn: getSessionQuery }));
 
-    console.log("session", session);
-
     if (!session?.user) {
       throw router.navigate({ to: "/" });
     }
