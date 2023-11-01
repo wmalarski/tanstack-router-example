@@ -11,7 +11,10 @@ import { z } from "zod";
 const Beers = () => {
   const { page } = useSearch({ from: beersIndexRoute.id });
 
-  const { data } = useQuery(getBeersKey({ page }), getBeers);
+  const { data } = useQuery({
+    queryKey: getBeersKey({ page }),
+    queryFn: getBeers,
+  });
 
   return (
     <div>
@@ -29,10 +32,11 @@ const Beers = () => {
 export const beersLoader = new Loader({
   key: "beers",
   loader: async (page: number) => {
-    const key = getBeersKey({ page });
+    const queryKey = getBeersKey({ page });
     const invoices =
-      queryClient.getQueryData<QueryFunctionResult<typeof getBeers>>(key) ??
-      (await queryClient.fetchQuery(key, getBeers));
+      queryClient.getQueryData<QueryFunctionResult<typeof getBeers>>(
+        queryKey,
+      ) ?? (await queryClient.fetchQuery({ queryKey, queryFn: getBeers }));
     return invoices;
   },
 });
@@ -44,10 +48,10 @@ export const beersIndexRoute = new Route({
     page: z.number().int().min(1).optional().default(1),
   }),
   getParentRoute: () => rootRoute,
-  onLoad: ({ search }) => {
-    return beersLoader.load(search.page);
+  loader: ({ params }) => {
+    return beersLoader.load(params.page);
   },
-  onLoaded: ({ search }) => {
+  onEnter: ({ search }) => {
     const key = getBeersKey({ page: search.page });
     const data = queryClient.getQueryData<Beer[]>(key);
     data?.forEach((beer) => {

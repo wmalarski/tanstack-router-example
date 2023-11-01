@@ -10,7 +10,10 @@ import { z } from "zod";
 const Beer = () => {
   const { id } = useParams({ from: beerRoute.id });
 
-  const { data } = useQuery(getBeerKey({ id }), getBeer);
+  const { data } = useQuery({
+    queryKey: getBeerKey({ id }),
+    queryFn: getBeer,
+  });
 
   return (
     <div>
@@ -23,10 +26,10 @@ const Beer = () => {
 export const beerLoader = new Loader({
   key: "beer",
   loader: async (id: number) => {
-    const key = getBeerKey({ id });
+    const queryKey = getBeerKey({ id });
     const invoice =
-      queryClient.getQueryData<QueryFunctionResult<typeof getBeer>>(key) ??
-      (await queryClient.fetchQuery(key, getBeer));
+      queryClient.getQueryData<QueryFunctionResult<typeof getBeer>>(queryKey) ??
+      (await queryClient.fetchQuery({ queryKey, queryFn: getBeer }));
     return invoice;
   },
 });

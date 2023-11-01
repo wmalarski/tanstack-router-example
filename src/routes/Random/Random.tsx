@@ -24,7 +24,7 @@ export const randomLoader = new Loader({
 export const randomRoute = new Route({
   path: "random",
   component: Random,
-  onLoad: () => {
+  loader: () => {
     return randomLoader.load();
   },
   getParentRoute: () => rootRoute,

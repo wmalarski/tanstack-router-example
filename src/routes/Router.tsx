@@ -1,12 +1,12 @@
 import { LoaderClientProvider } from "@tanstack/react-loaders";
-import { ReactRouter, RouterProvider } from "@tanstack/react-router";
+import { Router, RouterProvider } from "@tanstack/react-router";
 import { beerRoute } from "./Beer/Beer";
 import { beersIndexRoute } from "./Beers/Beers";
-import { loaderClient } from "./loaderClient";
 import { protectedRoute } from "./Protected/Protected";
 import { randomRoute } from "./Random/Random";
 import { rootRoute } from "./Root/Root";
 import { signInRoute } from "./SignIn/SignIn";
+import { loaderClient } from "./loaderClient";
 
 const routeTree = rootRoute.addChildren([
   beersIndexRoute,
@@ -16,7 +16,7 @@ const routeTree = rootRoute.addChildren([
   protectedRoute,
 ]);
 
-export const router = new ReactRouter({
+export const router = new Router({
   routeTree,
 });
 
@@ -26,7 +26,7 @@ declare module "@tanstack/react-router" {
   }
 }
 
-export const Router = () => {
+export const AppRouter = () => {
   return (
     <LoaderClientProvider loaderClient={loaderClient}>
       <RouterProvider router={router} />
