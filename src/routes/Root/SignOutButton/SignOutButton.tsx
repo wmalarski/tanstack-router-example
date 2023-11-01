@@ -6,15 +6,11 @@ import { sessionLoader } from "../Root";
 export const SignOutButton = () => {
   const { submit } = useAction(signOutAction);
 
-  return (
-    <button
-      onClick={() => {
-        submit();
-      }}
-    >
-      Sign Out
-    </button>
-  );
+  const onClick = () => {
+    submit();
+  };
+
+  return <button onClick={onClick}>Sign Out</button>;
 };
 
 const signOutAction = new Action({

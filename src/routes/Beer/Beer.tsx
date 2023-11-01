@@ -39,7 +39,7 @@ export const beerRoute = new Route({
   getParentRoute: () => rootRoute,
   parseParams: (params) => ({ id: z.coerce.number().int().parse(params.id) }),
   stringifyParams: ({ id }) => ({ id: `${id}` }),
-  onLoad: ({ params }) => {
+  loader: ({ params }) => {
     return beerLoader.load(params.id);
   },
   component: Beer,

@@ -18,9 +18,10 @@ export const protectedRoute = new Route({
   component: Protected,
   getParentRoute: () => rootRoute,
   beforeLoad: async () => {
+    const queryKey = getSessionKey();
     const session =
-      queryClient.getQueryData<Session>(getSessionKey()) ??
-      (await queryClient.fetchQuery(getSessionKey(), getSessionQuery));
+      queryClient.getQueryData<Session>(queryKey) ??
+      (await queryClient.fetchQuery({ queryKey, queryFn: getSessionQuery }));
 
     if (!session?.user) {
       throw router.navigate({ to: "/" });

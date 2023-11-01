@@ -4,7 +4,7 @@ import { Loader, useLoader } from "@tanstack/react-loaders";
 import { Route } from "@tanstack/react-router";
 
 const Random = () => {
-  const [loaderData, instance] = useLoader({ key: randomLoader.key });
+  const [loaderData] = useLoader({ key: randomLoader.key });
 
   return (
     <div>

@@ -47,9 +47,10 @@ export const beersIndexRoute = new Route({
   validateSearch: z.object({
     page: z.number().int().min(1).optional().default(1),
   }),
+  loaderContext: ({ search: { page } }) => ({ page }),
   getParentRoute: () => rootRoute,
-  loader: ({ params }) => {
-    return beersLoader.load(params.page);
+  loader: ({ context }) => {
+    return beersLoader.load(context.page);
   },
   onEnter: ({ search }) => {
     const key = getBeersKey({ page: search.page });
