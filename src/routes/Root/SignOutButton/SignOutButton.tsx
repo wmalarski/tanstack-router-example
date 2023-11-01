@@ -1,6 +1,6 @@
 import { router } from "@routes/Router";
 import { signOut } from "@services/auth";
-import { Action, useAction } from "@tanstack/react-actions";
+import { Action, useAction } from "@tanstack/actions";
 import { sessionLoader } from "../Root";
 
 export const SignOutButton = () => {

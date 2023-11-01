@@ -1,7 +1,8 @@
-import { rootRoute, sessionLoader } from "@routes/Root/Root";
+import { rootRoute } from "@routes/Root/Root";
 import { router } from "@routes/Router";
-import { signIn, SignInArgs } from "@services/auth";
-import { Action, useAction } from "@tanstack/react-actions";
+import { loaderClient } from "@routes/loaderClient";
+import { SignInArgs, signIn } from "@services/auth";
+import { Action } from "@tanstack/actions";
 import { Route } from "@tanstack/react-router";
 
 const SignIn = () => {
@@ -26,11 +27,11 @@ const SignIn = () => {
 
 const signInAction = new Action({
   key: "signIn",
-  action: (args: SignInArgs) => {
+  fn: (args: SignInArgs) => {
     return signIn(args);
   },
   onEachSuccess: () => {
-    sessionLoader.invalidate();
+    loaderClient.invalidateLoader({ key: "session" });
 
     router.navigate({ to: "/protected" });
   },
@@ -40,8 +41,11 @@ export const signInRoute = new Route({
   getParentRoute: () => rootRoute,
   path: "signIn",
   component: SignIn,
-  beforeLoad: async () => {
-    const session = await sessionLoader.load();
+  beforeLoad: async ({ abortController }) => {
+    const session = await loaderClient.fetch({
+      key: "session",
+      signal: abortController.signal,
+    });
 
     if (session?.user) {
       throw router.navigate({ to: "/" });

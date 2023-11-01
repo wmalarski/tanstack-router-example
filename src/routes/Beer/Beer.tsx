@@ -1,7 +1,8 @@
 import { rootRoute } from "@routes/Root/Root";
+import { loaderClient } from "@routes/loaderClient";
 import { getBeer, getBeerKey } from "@services/beers";
 import { queryClient } from "@services/queryClient";
-import { Loader } from "@tanstack/react-loaders";
+import { Loader } from "@tanstack/loaders";
 import { useQuery } from "@tanstack/react-query";
 import { Route, useParams } from "@tanstack/react-router";
 import { QueryFunctionResult } from "@utils/types";
@@ -25,7 +26,7 @@ const Beer = () => {
 
 export const beerLoader = new Loader({
   key: "beer",
-  loader: async (id: number) => {
+  fn: async (id: number) => {
     const queryKey = getBeerKey({ id });
     const invoice =
       queryClient.getQueryData<QueryFunctionResult<typeof getBeer>>(queryKey) ??
@@ -39,8 +40,12 @@ export const beerRoute = new Route({
   getParentRoute: () => rootRoute,
   parseParams: (params) => ({ id: z.coerce.number().int().parse(params.id) }),
   stringifyParams: ({ id }) => ({ id: `${id}` }),
-  loader: ({ params }) => {
-    return beerLoader.load(params.id);
+  loader: ({ params, abortController }) => {
+    return loaderClient.load({
+      key: "beer",
+      variables: params.id,
+      signal: abortController.signal,
+    });
   },
   component: Beer,
   pendingComponent: () => {

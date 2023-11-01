@@ -1,5 +1,5 @@
 import { getSession } from "@services/auth";
-import { Loader, useLoader } from "@tanstack/react-loaders";
+import { Loader, useLoader } from "@tanstack/loaders";
 import { Link, Outlet, RootRoute } from "@tanstack/react-router";
 import { SignOutButton } from "./SignOutButton/SignOutButton";
 
@@ -23,7 +23,7 @@ const Root = () => {
 
 export const sessionLoader = new Loader({
   key: "session",
-  loader: () => {
+  fn: () => {
     return getSession();
   },
 });

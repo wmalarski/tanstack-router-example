@@ -5,12 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@tanstack/react-actions':
-    specifier: 0.0.1-beta.53
-    version: 0.0.1-beta.53(react-dom@18.2.0)(react@18.2.0)
-  '@tanstack/react-loaders':
-    specifier: 0.0.1-beta.53
-    version: 0.0.1-beta.53(react-dom@18.2.0)(react@18.2.0)
+  '@tanstack/actions':
+    specifier: 0.0.1-beta.198
+    version: 0.0.1-beta.198
+  '@tanstack/loaders':
+    specifier: 0.0.1-beta.198
+    version: 0.0.1-beta.198
   '@tanstack/react-query':
     specifier: 5.4.3
     version: 5.4.3(react-dom@18.2.0)(react@18.2.0)
@@ -20,12 +20,9 @@ dependencies:
   '@tanstack/react-router':
     specifier: 0.0.1-beta.198
     version: 0.0.1-beta.198(react-dom@18.2.0)(react@18.2.0)
-  '@tanstack/react-router-devtools':
-    specifier: 0.0.1-beta.83
-    version: 0.0.1-beta.83(react-dom@18.2.0)(react@18.2.0)
-  '@tanstack/router':
-    specifier: 0.0.1-beta.174
-    version: 0.0.1-beta.174
+  '@tanstack/router-devtools':
+    specifier: 0.0.1-beta.198
+    version: 0.0.1-beta.198(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -560,11 +557,11 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@tanstack/actions@0.0.1-beta.52:
-    resolution: {integrity: sha512-LILCe3gxLh42EHTADIocanjkY0CKNo4LU6oElgi4sGzFtNawZLxCg64mEy55JUiQx8aBsxgSduvSpXMObjKy8Q==}
+  /@tanstack/actions@0.0.1-beta.198:
+    resolution: {integrity: sha512-5jYO+TqPn2Jo94XuivSaXIHppiseRwGXWUOCpRZJRFU9QywvrZ/Gv6nqznlgBzmKfuFkpAett7Ui2CZY+SkBRQ==}
     engines: {node: '>=12'}
     dependencies:
-      '@tanstack/store': 0.0.1-beta.52
+      '@tanstack/store': 0.0.1
       tiny-invariant: 1.3.1
     dev: false
 
@@ -573,11 +570,12 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /@tanstack/loaders@0.0.1-beta.52:
-    resolution: {integrity: sha512-6J1QHbsb1b4mdu/2YjSwRDC1wtF8bvkDmcmV6P3kUskwvblmESFttdX209s5wjaWkFCiGeyUAK74YRkjTmeQew==}
+  /@tanstack/loaders@0.0.1-beta.198:
+    resolution: {integrity: sha512-GSKW5iW/l1xCvQgQAXf8bZ8o2q2LpfMjn27q3s+Je8MtAUbBATKaQSj5ChSQ2o2prk3l68A6PbSzdLOqQlLVsg==}
     engines: {node: '>=12'}
     dependencies:
-      '@tanstack/store': 0.0.1-beta.52
+      '@tanstack/store': 0.0.1
+      tiny-invariant: 1.3.1
     dev: false
 
   /@tanstack/query-core@5.4.3:
@@ -586,33 +584,6 @@ packages:
 
   /@tanstack/query-devtools@5.4.2:
     resolution: {integrity: sha512-EXdaMXi8CxZuMp97J5mq6wy1RduOfoWFv5vtA1U+hyqb8Wst6M8kkkjDSdFvGZIRpYY4K8mKLlEFHNUZDG5dtw==}
-    dev: false
-
-  /@tanstack/react-actions@0.0.1-beta.53(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-OfefGks2ZBD35qP3KuaLPXepenprF3YSZNpSMapTx9KrxSmvm3RxqXs11cvc5yuxKxdNz6b9EntSLKefon9R9g==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      '@tanstack/actions': 0.0.1-beta.52
-      '@tanstack/react-store': 0.0.1-beta.53(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@tanstack/react-loaders@0.0.1-beta.53(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-V+zh2bfjJILXEQOnzBjZKIMWAYK0hbLIw0pMfAXUPNc0kXTgK0NzCYHUik/ls6owxKFyvhYZvROVwlfbEwMxIQ==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      '@tanstack/loaders': 0.0.1-beta.52
-      '@tanstack/react-store': 0.0.1-beta.53(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      tiny-invariant: 1.3.1
     dev: false
 
   /@tanstack/react-query-devtools@5.4.3(@tanstack/react-query@5.4.3)(react-dom@18.2.0)(react@18.2.0):
@@ -645,20 +616,6 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-router-devtools@0.0.1-beta.83(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-OdNfoB0L4NJP/Mx3Bu4yAez9KDm3/0RAXnDB5ETmdC+UceGzf1gKTBEUYLDyKASkfxqMJObEuArAYX9YT6f+Eg==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      '@babel/runtime': 7.20.6
-      '@tanstack/react-router': 0.0.1-beta.83(react-dom@18.2.0)(react@18.2.0)
-      date-fns: 2.29.3
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
   /@tanstack/react-router@0.0.1-beta.198(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-AxR4VPTyHeF0YCB2oddMNsXV79Lt0ijDVeQOvYCvISpP2BJxO/Nr9QGewemcPw1xBm9OqpCcxXe7eUKJxFyOyw==}
     engines: {node: '>=12'}
@@ -676,20 +633,6 @@ packages:
       tiny-warning: 1.0.3
     dev: false
 
-  /@tanstack/react-router@0.0.1-beta.83(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-FcezDPKxXu7uP8tjTQpKBXkweiql053O7D3hRBg1kWuU3LyouHFGFALLr2xvWkue4WWSpa1mBzrINldYygDKLw==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      '@babel/runtime': 7.20.6
-      '@tanstack/react-store': 0.0.1-beta.81(react-dom@18.2.0)(react@18.2.0)
-      '@tanstack/router': 0.0.1-beta.83
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
   /@tanstack/react-store@0.0.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-UMAHrm1FjehpfnSCi5Uel7fdoYM8fk2ovyHmoTBv4SPS66hLLEEVPQhALrIkJ0OSi1h+p96HapCFNqlavZADIA==}
     engines: {node: '>=12'}
@@ -698,32 +641,6 @@ packages:
       react-dom: '>=16'
     dependencies:
       '@tanstack/store': 0.0.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
-
-  /@tanstack/react-store@0.0.1-beta.53(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-cQBT/wZmkcIegfLiQDzLKWWKwdqWbvRjkoIss5NPf4Xh470TKa+f2shnQa32BFpRO897jFhLP4cykIBNhtK/Dg==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      '@tanstack/loaders': 0.0.1-beta.52
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
-
-  /@tanstack/react-store@0.0.1-beta.81(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-wN4YVYzWQOvNKBnS+3+JINkR8qx93tX52iqzJfzzt3b7e3oqlkl3X3SnpGH1/hRwMNklMxvT7dIg//qfWGzUhA==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      '@tanstack/store': 0.0.1-beta.81
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
@@ -746,35 +663,22 @@ packages:
       tiny-warning: 1.0.3
     dev: false
 
-  /@tanstack/router@0.0.1-beta.174:
-    resolution: {integrity: sha512-n/qREl30a1P7Bww3lTNE1xpgnjuUcPik9ENptg3PJjsZWI/gTn8Q3kPxfK4atZAksuOsyBgp7xjteefbPmULUQ==}
+  /@tanstack/router-devtools@0.0.1-beta.198(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-hYeP5QsAmj/+3x6srI34l5xYfsvQoELtgs3iDFCu2u63hyfJVorUIrw58aPZlvoE58qlo73Oc4MBY6ReGjHPNA==}
     engines: {node: '>=12'}
-    dev: false
-
-  /@tanstack/router@0.0.1-beta.83:
-    resolution: {integrity: sha512-cwkfyvgg7g60wbKZBRl1sbut+eYyE6bPc/Efz2ozFD//oV6qBUftoRm4PbN5cdPgrHjjLOFuOKW43EEUXM/exQ==}
-    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
     dependencies:
       '@babel/runtime': 7.20.6
-      '@tanstack/store': 0.0.1-beta.81
-      tiny-invariant: 1.3.1
-      tiny-warning: 1.0.3
+      '@tanstack/react-router': 0.0.1-beta.198(react-dom@18.2.0)(react@18.2.0)
+      date-fns: 2.29.3
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /@tanstack/store@0.0.1:
     resolution: {integrity: sha512-Hq5mwC9oPD1HVRIsgxASYtJQAv5x7k42SMXBq2b/fMYrtMf7WMkOArOMs/ExoNED214Ql94Ft4zVWr0u2D6a6w==}
-    engines: {node: '>=12'}
-    dev: false
-
-  /@tanstack/store@0.0.1-beta.52:
-    resolution: {integrity: sha512-3/5XqeG09sCJnakHpq8qgXjdVpm97aITbi1wfbjLGXdVsss62zpJAvc4vL8ccHf+J/OmoS4dJTNuEZ0alywZtg==}
-    engines: {node: '>=12'}
-    dependencies:
-      immer: 9.0.19
-    dev: false
-
-  /@tanstack/store@0.0.1-beta.81:
-    resolution: {integrity: sha512-OYFQ4RmDjSIzJnJrhsvpSpM4+lO/3NBaXGloC5IO3YNm0Ewgy/MSCePJgUamstXPmBAaLC2KEgi4O9FHyzA6lw==}
     engines: {node: '>=12'}
     dev: false
 
@@ -981,10 +885,6 @@ packages:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
     engines: {node: '>=4'}
     dev: true
-
-  /immer@9.0.19:
-    resolution: {integrity: sha512-eY+Y0qcsB4TZKwgQzLaE/lqYMlKhv5J9dyd2RhhtGhNo2njPXDqU9XPfcNfa3MIDsdtZt5KlkIsirlo4dHsWdQ==}
-    dev: false
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
