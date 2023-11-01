@@ -3,10 +3,8 @@ import { loaderClient } from "@routes/loaderClient";
 import { getBeerKey, getBeers, getBeersKey } from "@services/beers";
 import { queryClient } from "@services/queryClient";
 import type { Beer } from "@services/types";
-import { Loader } from "@tanstack/loaders";
 import { useQuery } from "@tanstack/react-query";
 import { Link, Route, useSearch } from "@tanstack/react-router";
-import { QueryFunctionResult } from "@utils/types";
 import { z } from "zod";
 
 const Beers = () => {
@@ -29,18 +27,6 @@ const Beers = () => {
     </div>
   );
 };
-
-export const beersLoader = new Loader({
-  key: "beers",
-  fn: async (page: number) => {
-    const queryKey = getBeersKey({ page });
-    const invoices =
-      queryClient.getQueryData<QueryFunctionResult<typeof getBeers>>(
-        queryKey,
-      ) ?? (await queryClient.fetchQuery({ queryKey, queryFn: getBeers }));
-    return invoices;
-  },
-});
 
 export const beersIndexRoute = new Route({
   path: "/",

@@ -1,7 +1,5 @@
 import { rootRoute } from "@routes/Root/Root";
 import { loaderClient } from "@routes/loaderClient";
-import { getRandomBeer } from "@services/beers";
-import { Loader } from "@tanstack/loaders";
 import { Route, useLoader } from "@tanstack/react-router";
 
 const Random = () => {
@@ -14,13 +12,6 @@ const Random = () => {
     </div>
   );
 };
-
-export const randomLoader = new Loader({
-  key: "random",
-  fn: async () => {
-    return getRandomBeer();
-  },
-});
 
 export const randomRoute = new Route({
   path: "random",

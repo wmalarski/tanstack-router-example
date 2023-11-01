@@ -1,26 +1,21 @@
 import { router } from "@routes/Router";
+import { loaderClient } from "@routes/loaderClient";
 import { signOut } from "@services/auth";
-import { Action, useAction } from "@tanstack/actions";
-import { sessionLoader } from "../Root";
+import { useMutation } from "@tanstack/react-query";
 
 export const SignOutButton = () => {
-  const { submit } = useAction(signOutAction);
+  const mutation = useMutation({
+    mutationFn: signOut,
+    onSuccess: () => {
+      loaderClient.invalidateLoader({ key: "session" });
+
+      router.navigate({ to: "/" });
+    },
+  });
 
   const onClick = () => {
-    submit();
+    mutation.mutate();
   };
 
   return <button onClick={onClick}>Sign Out</button>;
 };
-
-const signOutAction = new Action({
-  key: "signOut",
-  action: () => {
-    return signOut();
-  },
-  onEachSuccess: () => {
-    sessionLoader.invalidate();
-
-    router.navigate({ to: "/" });
-  },
-});

@@ -1,41 +1,34 @@
 import { rootRoute } from "@routes/Root/Root";
 import { router } from "@routes/Router";
 import { loaderClient } from "@routes/loaderClient";
-import { SignInArgs, signIn } from "@services/auth";
-import { Action } from "@tanstack/actions";
+import { signIn } from "@services/auth";
+import { useMutation } from "@tanstack/react-query";
 import { Route } from "@tanstack/react-router";
 
 const SignIn = () => {
-  const { submit } = useAction(signInAction);
+  const mutation = useMutation({
+    mutationFn: signIn,
+    onSuccess: () => {
+      loaderClient.invalidateLoader({ key: "session" });
+
+      router.navigate({ to: "/protected" });
+    },
+  });
+
+  const onClick = () => {
+    mutation.mutate({
+      email: "email",
+      password: "password",
+    });
+  };
 
   return (
     <div>
       <span>SignIn</span>
-      <button
-        onClick={() =>
-          submit({
-            email: "email",
-            password: "password",
-          })
-        }
-      >
-        Sign In
-      </button>
+      <button onClick={onClick}>Sign In</button>
     </div>
   );
 };
-
-const signInAction = new Action({
-  key: "signIn",
-  fn: (args: SignInArgs) => {
-    return signIn(args);
-  },
-  onEachSuccess: () => {
-    loaderClient.invalidateLoader({ key: "session" });
-
-    router.navigate({ to: "/protected" });
-  },
-});
 
 export const signInRoute = new Route({
   getParentRoute: () => rootRoute,

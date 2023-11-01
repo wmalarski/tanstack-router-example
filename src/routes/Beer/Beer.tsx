@@ -1,11 +1,8 @@
 import { rootRoute } from "@routes/Root/Root";
 import { loaderClient } from "@routes/loaderClient";
 import { getBeer, getBeerKey } from "@services/beers";
-import { queryClient } from "@services/queryClient";
-import { Loader } from "@tanstack/loaders";
 import { useQuery } from "@tanstack/react-query";
 import { Route, useParams } from "@tanstack/react-router";
-import { QueryFunctionResult } from "@utils/types";
 import { z } from "zod";
 
 const Beer = () => {
@@ -23,17 +20,6 @@ const Beer = () => {
     </div>
   );
 };
-
-export const beerLoader = new Loader({
-  key: "beer",
-  fn: async (id: number) => {
-    const queryKey = getBeerKey({ id });
-    const invoice =
-      queryClient.getQueryData<QueryFunctionResult<typeof getBeer>>(queryKey) ??
-      (await queryClient.fetchQuery({ queryKey, queryFn: getBeer }));
-    return invoice;
-  },
-});
 
 export const beerRoute = new Route({
   path: "beers/$id",
