@@ -7,6 +7,26 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, Route, useSearch } from "@tanstack/react-router";
 import { z } from "zod";
 
+type BeerListItemProps = {
+  beer: Beer;
+};
+
+export const BeerListItem = ({ beer }: BeerListItemProps) => {
+  return (
+    <li>
+      <img src={beer.image_url} />
+      <Link to="/beers/$id" params={{ id: beer.id }}>
+        <h2>{beer.name}</h2>
+      </Link>
+      <span>{beer.description}</span>
+      <details>
+        <summary>More</summary>
+        <pre>{JSON.stringify(beer, null, 2)}</pre>
+      </details>
+    </li>
+  );
+};
+
 const Beers = () => {
   const { page } = useSearch({ from: beersIndexRoute.id });
 
@@ -18,12 +38,11 @@ const Beers = () => {
   return (
     <div>
       <span>Beers</span>
-      {data?.map((beer) => (
-        <Link key={beer.id} to="/beers/$id" params={{ id: beer.id }}>
-          <h2>{beer.name}</h2>
-          <h3>{beer.description}</h3>
-        </Link>
-      ))}
+      <ul>
+        {data?.map((beer) => (
+          <BeerListItem key={beer.id} beer={beer} />
+        ))}
+      </ul>
     </div>
   );
 };

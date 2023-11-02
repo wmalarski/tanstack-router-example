@@ -14,12 +14,12 @@ export interface Beer {
   description: string;
   image_url: string;
   abv: number;
-  ibu?: number;
+  ibu?: number | null;
   target_fg: number;
   target_og: number;
-  ebc?: number;
-  srm?: number;
-  ph?: number;
+  ebc?: number | null;
+  srm?: number | null;
+  ph?: number | null;
   attenuation_level: number;
   volume: Volume;
   boil_volume: BoilVolume;
@@ -43,12 +43,12 @@ export interface BoilVolume {
 export interface Method {
   mash_temp: MashTemp[];
   fermentation: Fermentation;
-  twist?: string;
+  twist?: string | null;
 }
 
 export interface MashTemp {
   temp: Temp;
-  duration?: number;
+  duration?: number | null;
 }
 
 export interface Fermentation {

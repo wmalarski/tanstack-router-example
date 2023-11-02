@@ -2,10 +2,6 @@ import { Link, Outlet, RootRoute } from "@tanstack/react-router";
 import { SignOutButton } from "./SignOutButton/SignOutButton";
 
 const Root = () => {
-  // const session = useLoader({ from: "/" });
-
-  // console.log({ session });
-
   return (
     <div>
       <nav>
