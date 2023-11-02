@@ -1,19 +1,19 @@
-import { router } from "@routes/Router";
-import { routerContext } from "@tanstack/react-router";
 import "@testing-library/jest-dom/vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { TestWrapper } from "@tests/TestWrapper";
 import { mockBeers } from "@tests/mocks";
 import { expect, it } from "vitest";
 import { BeerListItem } from "./BeerListItem";
+import { Example } from "./Example";
 
 it("loads and displays greeting", async () => {
   // ARRANGE
   const beer = mockBeers[0];
   render(
-    <routerContext.Provider value={router}>
+    <TestWrapper>
       <BeerListItem beer={beer} />
-    </routerContext.Provider>,
+    </TestWrapper>,
   );
 
   // ACT
@@ -22,4 +22,40 @@ it("loads and displays greeting", async () => {
 
   // ASSERT
   expect(screen.getByRole("heading")).toHaveTextContent(beer.name);
+});
+
+it("updates value", async () => {
+  // ARRANGE
+  const beer = mockBeers[0];
+  render(
+    <TestWrapper>
+      <Example beer={beer} />
+    </TestWrapper>,
+  );
+
+  // ACT
+  await userEvent.click(screen.getByText("Add"));
+
+  // ASSERT
+  expect(screen.getByText("1")).toBeInTheDocument();
+});
+
+it("updates value async", async () => {
+  // ARRANGE
+  const beer = mockBeers[0];
+  render(
+    <TestWrapper>
+      <Example beer={beer} />
+    </TestWrapper>,
+  );
+
+  // ACT
+  await userEvent.click(screen.getByText("Add2"));
+
+  await waitFor(() => {
+    expect(screen.getByText("1")).toBeInTheDocument();
+  });
+
+  // ASSERT
+  expect(screen.getByText("1")).toBeInTheDocument();
 });
