@@ -27,4 +27,7 @@ export const protectedRoute = new Route({
   pendingComponent: () => {
     return <span>Loading Protected</span>;
   },
+  errorComponent: () => {
+    return <span>Loading Protected Error</span>;
+  },
 });

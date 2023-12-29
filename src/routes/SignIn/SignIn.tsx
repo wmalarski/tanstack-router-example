@@ -48,4 +48,7 @@ export const signInRoute = new Route({
   pendingComponent: () => {
     return <span>Loading Sign In Pending</span>;
   },
+  errorComponent: () => {
+    return <span>Loading Sign In Error</span>;
+  },
 });

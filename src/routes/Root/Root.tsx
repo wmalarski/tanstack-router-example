@@ -23,4 +23,10 @@ const Root = () => {
 
 export const rootRoute = new RootRoute({
   component: Root,
+  errorComponent: () => {
+    return <span>Loading Root Error</span>;
+  },
+  pendingComponent: () => {
+    return <span>Loading Root</span>;
+  }
 });

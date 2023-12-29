@@ -1,13 +1,10 @@
 import { rootRoute } from "@routes/Root/Root";
-import {
-  getBeerQueryOptions,
-  getBeersQueryOptions
-} from "@services/beers";
+import { getBeerQueryOptions, getBeersQueryOptions } from "@services/beers";
 import { queryClient } from "@services/queryClient";
 import type { Beer } from "@services/types";
 import { useQuery } from "@tanstack/react-query";
 import { Link, Route, useSearch } from "@tanstack/react-router";
-import { z } from "zod";
+import { coerce, integer, minValue, number, object, parse } from "valibot";
 
 type BeerListItemProps = {
   beer: Beer;
@@ -49,9 +46,11 @@ const Beers = () => {
 export const beersIndexRoute = new Route({
   path: "/",
   component: Beers,
-  validateSearch: z.object({
-    page: z.number().int().min(1).optional().default(1),
-  }),
+  validateSearch: (search) =>
+    parse(
+      object({ page: coerce(number([integer(), minValue(1)]), Number) }),
+      search,
+    ),
   getParentRoute: () => rootRoute,
   loaderDeps: ({ search }) => ({ page: search.page }),
   loader: async ({ deps }) => {
@@ -66,5 +65,8 @@ export const beersIndexRoute = new Route({
   },
   pendingComponent: () => {
     return <span>Loading Beers List</span>;
+  },
+  errorComponent: () => {
+    return <span>Loading Beers List Error</span>;
   },
 });
