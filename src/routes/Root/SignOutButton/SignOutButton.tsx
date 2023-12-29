@@ -1,13 +1,17 @@
-import { router } from "@routes/Router";
-import { loaderClient } from "@routes/loaderClient";
-import { signOut } from "@services/auth";
-import { useMutation } from "@tanstack/react-query";
+import { getSessionQueryOptions, signOut } from "@services/auth";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "@tanstack/react-router";
 
 export const SignOutButton = () => {
+  const router = useRouter();
+
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: signOut,
     onSuccess: async () => {
-      await loaderClient.invalidateLoader({ key: "session" });
+      const { queryKey } = getSessionQueryOptions();
+      await queryClient.invalidateQueries({ queryKey });
 
       await router.navigate({ to: "/" });
     },

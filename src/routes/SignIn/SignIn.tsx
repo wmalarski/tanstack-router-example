@@ -1,15 +1,19 @@
 import { rootRoute } from "@routes/Root/Root";
-import { router } from "@routes/Router";
-import { loaderClient } from "@routes/loaderClient";
-import { signIn } from "@services/auth";
-import { useMutation } from "@tanstack/react-query";
-import { Route } from "@tanstack/react-router";
+import { getSessionQueryOptions, signIn } from "@services/auth";
+import { queryClient } from "@services/queryClient";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Route, useRouter } from "@tanstack/react-router";
 
 const SignIn = () => {
+  const queryClient = useQueryClient();
+
+  const router = useRouter();
+
   const mutation = useMutation({
     mutationFn: signIn,
     onSuccess: async () => {
-      await loaderClient.invalidateLoader({ key: "session" });
+      const { queryKey } = getSessionQueryOptions();
+      await queryClient.invalidateQueries({ queryKey });
 
       await router.navigate({ to: "/protected" });
     },
@@ -34,14 +38,11 @@ export const signInRoute = new Route({
   getParentRoute: () => rootRoute,
   path: "signIn",
   component: SignIn,
-  beforeLoad: async ({ abortController }) => {
-    const session = await loaderClient.fetch({
-      key: "session",
-      signal: abortController.signal,
-    });
+  beforeLoad: async ({ navigate }) => {
+    const session = await queryClient.ensureQueryData(getSessionQueryOptions());
 
     if (session?.user) {
-      throw router.navigate({ to: "/" });
+      throw navigate({ to: "/" });
     }
   },
   pendingComponent: () => {

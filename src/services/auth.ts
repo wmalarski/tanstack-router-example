@@ -1,4 +1,4 @@
-import type { QueryFunction } from "@tanstack/react-query";
+import { queryOptions, type QueryFunction } from "@tanstack/react-query";
 import { Session } from "./types";
 
 const delay = 2000;
@@ -45,4 +45,13 @@ export const signOut = async () => {
       resolve(void 0);
     }, delay),
   );
+};
+
+export const getSessionQueryOptions = () => {
+  return queryOptions({
+    queryKey: ["getSession"],
+    queryFn: () => {
+      return getSession();
+    },
+  });
 };
