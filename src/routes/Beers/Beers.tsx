@@ -1,5 +1,8 @@
 import { rootRoute } from "@routes/Root/Root";
-import { getBeerKey, getBeers, getBeersKey } from "@services/beers";
+import {
+  getBeerQueryOptions,
+  getBeersQueryOptions
+} from "@services/beers";
 import { queryClient } from "@services/queryClient";
 import type { Beer } from "@services/types";
 import { useQuery } from "@tanstack/react-query";
@@ -29,10 +32,7 @@ export const BeerListItem = ({ beer }: BeerListItemProps) => {
 const Beers = () => {
   const { page } = useSearch({ from: beersIndexRoute.id });
 
-  const { data } = useQuery({
-    queryKey: getBeersKey({ page }),
-    queryFn: getBeers,
-  });
+  const { data } = useQuery(getBeersQueryOptions({ page }));
 
   return (
     <div>
@@ -52,25 +52,16 @@ export const beersIndexRoute = new Route({
   validateSearch: z.object({
     page: z.number().int().min(1).optional().default(1),
   }),
-
-  // loaderContext: ({ search: { page } }) => ({ page }),
   getParentRoute: () => rootRoute,
   loaderDeps: ({ search }) => ({ page: search.page }),
-  loader: ({ deps }) => {
-    const queryKey = getBeersKey({ page: deps.page });
+  loader: async ({ deps }) => {
+    const beers = await queryClient.ensureQueryData(
+      getBeersQueryOptions({ page: deps.page }),
+    );
 
-    const invoices = queryClient.ensureQueryData({
-      queryKey,
-      queryFn: getBeers
-    });
-
-    return invoices;
-  },
-  onEnter: ({ search }) => {
-    const key = getBeersKey({ page: search.page });
-    const data = queryClient.getQueryData<Beer[]>(key);
-    data?.forEach((beer) => {
-      queryClient.setQueryData(getBeerKey({ id: beer.id }), beer);
+    beers?.forEach((beer) => {
+      const { queryKey } = getBeerQueryOptions({ id: beer.id });
+      queryClient.setQueryData(queryKey, beer);
     });
   },
   pendingComponent: () => {
