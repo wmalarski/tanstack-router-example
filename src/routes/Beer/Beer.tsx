@@ -20,20 +20,28 @@ const Beer = () => {
 
 export const beerRoute = new Route({
   path: "beers/$id",
-  getParentRoute: () => rootRoute,
-  parseParams: (params) =>
-    parse(
+  getParentRoute() {
+    return rootRoute;
+  },
+  parseParams(params) {
+    return parse(
       object({ id: coerce(number([integer(), minValue(1)]), Number) }),
       params,
-    ),
-  loader: async ({ params }) => {
+    );
+  },
+  async loader({ params }) {
     await queryClient.ensureQueryData(getBeerQueryOptions({ id: params.id }));
   },
   component: Beer,
-  pendingComponent: () => {
+  pendingComponent() {
     return <span>Loading Beer Details</span>;
   },
-  errorComponent: () => {
-    return <span>Loading Beer Error</span>;
+  errorComponent(error) {
+    return (
+      <div>
+        Loading Beer Error
+        <pre>{JSON.stringify(error, null, 2)}</pre>
+      </div>
+    );
   },
 });

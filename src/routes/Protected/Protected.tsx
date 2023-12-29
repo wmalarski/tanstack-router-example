@@ -1,7 +1,5 @@
 import { rootRoute } from "@routes/Root/Root";
-import {
-  getSessionQueryOptions
-} from "@services/auth";
+import { getSessionQueryOptions } from "@services/auth";
 import { queryClient } from "@services/queryClient";
 import { Route } from "@tanstack/react-router";
 
@@ -27,7 +25,12 @@ export const protectedRoute = new Route({
   pendingComponent: () => {
     return <span>Loading Protected</span>;
   },
-  errorComponent: () => {
-    return <span>Loading Protected Error</span>;
+  errorComponent: (error) => {
+    return (
+      <div>
+        Loading Protected Error
+        <pre>{JSON.stringify(error, null, 2)}</pre>
+      </div>
+    );
   },
 });

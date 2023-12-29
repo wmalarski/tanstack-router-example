@@ -25,7 +25,12 @@ export const randomRoute = new Route({
   pendingComponent: () => {
     return <span>Loading Random Beer Details</span>;
   },
-  errorComponent: () => {
-    return <span>Loading Random Error</span>;
+  errorComponent: (error) => {
+    return (
+      <div>
+        Loading Random Error
+        <pre>{JSON.stringify(error, null, 2)}</pre>
+      </div>
+    );
   },
 });

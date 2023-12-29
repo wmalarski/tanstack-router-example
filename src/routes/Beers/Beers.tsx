@@ -4,7 +4,15 @@ import { queryClient } from "@services/queryClient";
 import type { Beer } from "@services/types";
 import { useQuery } from "@tanstack/react-query";
 import { Link, Route, useSearch } from "@tanstack/react-router";
-import { coerce, integer, minValue, number, object, parse } from "valibot";
+import {
+  coerce,
+  integer,
+  minValue,
+  number,
+  object,
+  optional,
+  parse,
+} from "valibot";
 
 type BeerListItemProps = {
   beer: Beer;
@@ -48,7 +56,9 @@ export const beersIndexRoute = new Route({
   component: Beers,
   validateSearch: (search) =>
     parse(
-      object({ page: coerce(number([integer(), minValue(1)]), Number) }),
+      object({
+        page: optional(coerce(number([integer(), minValue(1)]), Number), 1),
+      }),
       search,
     ),
   getParentRoute: () => rootRoute,
