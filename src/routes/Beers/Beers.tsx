@@ -33,26 +33,24 @@ export const BeerListItem = ({ beer }: BeerListItemProps) => {
   );
 };
 
-const Beers = () => {
-  const { page } = useSearch({ from: beersIndexRoute.id });
-
-  const { data } = useQuery(getBeersQueryOptions({ page }));
-
-  return (
-    <div>
-      <span>Beers</span>
-      <ul>
-        {data?.map((beer) => (
-          <BeerListItem key={beer.id} beer={beer} />
-        ))}
-      </ul>
-    </div>
-  );
-};
-
 export const beersIndexRoute = new Route({
   path: "/",
-  component: Beers,
+  component: () => {
+    const { page } = useSearch({ from: beersIndexRoute.id });
+  
+    const { data } = useQuery(getBeersQueryOptions({ page }));
+  
+    return (
+      <div>
+        <span>Beers</span>
+        <ul>
+          {data?.map((beer) => (
+            <BeerListItem key={beer.id} beer={beer} />
+          ))}
+        </ul>
+      </div>
+    );
+  },
   validateSearch: (search) =>
     parse(
       object({

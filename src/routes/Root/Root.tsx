@@ -3,26 +3,24 @@ import { QueryClient, useQuery } from "@tanstack/react-query";
 import { Link, Outlet, rootRouteWithContext } from "@tanstack/react-router";
 import { SignOutButton } from "./SignOutButton/SignOutButton";
 
-const Root = () => {
-  const session = useQuery(getSessionQueryOptions());
-
-  return (
-    <div>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/random">Random</Link>
-        <Link to="/signIn">Sign In</Link>
-        <Link to="/protected">Protected</Link>
-      </nav>
-      Root Route
-      {session.data ? <SignOutButton /> : null}
-      <Outlet />
-    </div>
-  );
-};
-
 export const rootRoute = rootRouteWithContext<{ queryClient: QueryClient }>()({
-  component: Root,
+  component: () => {
+    const session = useQuery(getSessionQueryOptions());
+  
+    return (
+      <div>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/random">Random</Link>
+          <Link to="/signIn">Sign In</Link>
+          <Link to="/protected">Protected</Link>
+        </nav>
+        Root Route
+        {session.data ? <SignOutButton /> : null}
+        <Outlet />
+      </div>
+    );
+  },
   errorComponent: (error) => {
     return (
       <div>

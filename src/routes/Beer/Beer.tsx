@@ -4,19 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { Route, useParams } from "@tanstack/react-router";
 import { coerce, integer, minValue, number, object, parse } from "valibot";
 
-const Beer = () => {
-  const { id } = useParams({ from: beerRoute.id });
-
-  const { data } = useQuery(getBeerQueryOptions({ id }));
-
-  return (
-    <div>
-      <span>Beer</span>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
-  );
-};
-
 export const beerRoute = new Route({
   path: "beers/$id",
   getParentRoute() {
@@ -31,7 +18,18 @@ export const beerRoute = new Route({
   async loader({ context: { queryClient }, params }) {
     await queryClient.ensureQueryData(getBeerQueryOptions({ id: params.id }));
   },
-  component: Beer,
+  component: () => {
+    const { id } = useParams({ from: beerRoute.id });
+  
+    const { data } = useQuery(getBeerQueryOptions({ id }));
+  
+    return (
+      <div>
+        <span>Beer</span>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </div>
+    );
+  },
   pendingComponent() {
     return <span>Loading Beer Details</span>;
   },

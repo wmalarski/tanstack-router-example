@@ -3,20 +3,18 @@ import { getRandomBeerQueryOptions } from "@services/beers";
 import { useQuery } from "@tanstack/react-query";
 import { Route } from "@tanstack/react-router";
 
-const Random = () => {
-  const loaderData = useQuery(getRandomBeerQueryOptions());
-
-  return (
-    <div>
-      <span>Random</span>
-      <pre>{JSON.stringify(loaderData, null, 2)}</pre>
-    </div>
-  );
-};
-
 export const randomRoute = new Route({
   path: "random",
-  component: Random,
+  component: () => {
+    const loaderData = useQuery(getRandomBeerQueryOptions());
+  
+    return (
+      <div>
+        <span>Random</span>
+        <pre>{JSON.stringify(loaderData, null, 2)}</pre>
+      </div>
+    );
+  },
   loader: async ({context: { queryClient }}) => {
     await queryClient.ensureQueryData(getRandomBeerQueryOptions());
   },

@@ -2,17 +2,15 @@ import { rootRoute } from "@routes/Root/Root";
 import { getSessionQueryOptions } from "@services/auth";
 import { Route } from "@tanstack/react-router";
 
-const Protected = () => {
-  return (
-    <div>
-      <span>Protected</span>
-    </div>
-  );
-};
-
 export const protectedRoute = new Route({
   path: "protected",
-  component: Protected,
+  component: () => {
+    return (
+      <div>
+        <span>Protected</span>
+      </div>
+    );
+  },
   getParentRoute: () => rootRoute,
   beforeLoad: async ({ navigate, context: { queryClient } }) => {
     const session = await queryClient.ensureQueryData(getSessionQueryOptions());
