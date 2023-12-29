@@ -1,6 +1,5 @@
 import { getBeer, getBeerKey } from "@services/beers";
 import { queryClient } from "@services/queryClient";
-import { Loader } from "@tanstack/loaders";
 import { QueryFunctionResult } from "@utils/types";
 
 export const beerLoader = new Loader({

@@ -1,3 +1,4 @@
+import { queryClient } from "@services/queryClient";
 import { Router, RouterProvider } from "@tanstack/react-router";
 import { beerRoute } from "./Beer/Beer";
 import { beersIndexRoute } from "./Beers/Beers";
@@ -16,6 +17,9 @@ const routeTree = rootRoute.addChildren([
 
 export const router = new Router({
   routeTree,
+  context: {
+    queryClient,
+  }
 });
 
 declare module "@tanstack/react-router" {

@@ -1,5 +1,4 @@
 import { rootRoute } from "@routes/Root/Root";
-import { loaderClient } from "@routes/loaderClient";
 import { getBeerKey, getBeers, getBeersKey } from "@services/beers";
 import { queryClient } from "@services/queryClient";
 import type { Beer } from "@services/types";
@@ -53,14 +52,19 @@ export const beersIndexRoute = new Route({
   validateSearch: z.object({
     page: z.number().int().min(1).optional().default(1),
   }),
-  loaderContext: ({ search: { page } }) => ({ page }),
+
+  // loaderContext: ({ search: { page } }) => ({ page }),
   getParentRoute: () => rootRoute,
-  loader: ({ context, abortController }) => {
-    return loaderClient.load({
-      key: "beers",
-      variables: context.page,
-      signal: abortController.signal,
+  loaderDeps: ({ search }) => ({ page: search.page }),
+  loader: ({ deps }) => {
+    const queryKey = getBeersKey({ page: deps.page });
+
+    const invoices = queryClient.ensureQueryData({
+      queryKey,
+      queryFn: getBeers
     });
+
+    return invoices;
   },
   onEnter: ({ search }) => {
     const key = getBeersKey({ page: search.page });
