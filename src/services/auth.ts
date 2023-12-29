@@ -1,10 +1,10 @@
-import { queryOptions, type QueryFunction } from "@tanstack/react-query";
+import { queryOptions } from "@tanstack/react-query";
 import { Session } from "./types";
 
 const delay = 2000;
 const localStorageKey = "auth_client";
 
-export type SignInArgs = {
+type SignInArgs = {
   email: string;
   password: string;
 };
@@ -18,7 +18,7 @@ export const signIn = (args: SignInArgs): Promise<Session> => {
   );
 };
 
-export const getSession = async (): Promise<Session | null> => {
+export const getSession = (): Promise<Session | null> => {
   return new Promise((resolve) =>
     setTimeout(() => {
       const email = localStorage.getItem(localStorageKey);
@@ -27,18 +27,7 @@ export const getSession = async (): Promise<Session | null> => {
   );
 };
 
-export const getSessionKey = () => {
-  return ["getSession"];
-};
-
-export const getSessionQuery: QueryFunction<
-  Session | null,
-  ReturnType<typeof getSessionKey>
-> = async () => {
-  return getSession();
-};
-
-export const signOut = async () => {
+export const signOut = () => {
   return new Promise((resolve) =>
     setTimeout(() => {
       localStorage.removeItem(localStorageKey);

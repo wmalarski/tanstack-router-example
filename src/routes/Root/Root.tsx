@@ -1,7 +1,11 @@
+import { getSessionQueryOptions } from "@services/auth";
+import { useQuery } from "@tanstack/react-query";
 import { Link, Outlet, RootRoute } from "@tanstack/react-router";
 import { SignOutButton } from "./SignOutButton/SignOutButton";
 
 const Root = () => {
+  const session = useQuery(getSessionQueryOptions());
+
   return (
     <div>
       <nav>
@@ -11,7 +15,7 @@ const Root = () => {
         <Link to="/protected">Protected</Link>
       </nav>
       Root Route
-      <SignOutButton />
+      {session.data ? <SignOutButton /> : null}
       <Outlet />
     </div>
   );
