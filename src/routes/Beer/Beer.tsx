@@ -1,6 +1,5 @@
 import { rootRoute } from "@routes/Root/Root";
 import { getBeerQueryOptions } from "@services/beers";
-import { queryClient } from "@services/queryClient";
 import { useQuery } from "@tanstack/react-query";
 import { Route, useParams } from "@tanstack/react-router";
 import { coerce, integer, minValue, number, object, parse } from "valibot";
@@ -29,7 +28,7 @@ export const beerRoute = new Route({
       params,
     );
   },
-  async loader({ params }) {
+  async loader({ context: { queryClient }, params }) {
     await queryClient.ensureQueryData(getBeerQueryOptions({ id: params.id }));
   },
   component: Beer,

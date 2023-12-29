@@ -1,6 +1,5 @@
 import { rootRoute } from "@routes/Root/Root";
 import { getSessionQueryOptions, signIn } from "@services/auth";
-import { queryClient } from "@services/queryClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Route, useRouter } from "@tanstack/react-router";
 
@@ -38,7 +37,7 @@ export const signInRoute = new Route({
   getParentRoute: () => rootRoute,
   path: "signIn",
   component: SignIn,
-  beforeLoad: async ({ navigate }) => {
+  beforeLoad: async ({ navigate, context: { queryClient } }) => {
     const session = await queryClient.ensureQueryData(getSessionQueryOptions());
 
     if (session?.user) {

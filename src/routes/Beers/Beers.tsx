@@ -1,6 +1,5 @@
 import { rootRoute } from "@routes/Root/Root";
 import { getBeerQueryOptions, getBeersQueryOptions } from "@services/beers";
-import { queryClient } from "@services/queryClient";
 import type { Beer } from "@services/types";
 import { useQuery } from "@tanstack/react-query";
 import { Link, Route, useSearch } from "@tanstack/react-router";
@@ -63,7 +62,7 @@ export const beersIndexRoute = new Route({
     ),
   getParentRoute: () => rootRoute,
   loaderDeps: ({ search }) => ({ page: search.page }),
-  loader: async ({ deps }) => {
+  loader: async ({ deps, context: { queryClient } }) => {
     const beers = await queryClient.ensureQueryData(
       getBeersQueryOptions({ page: deps.page }),
     );

@@ -1,6 +1,6 @@
 import { getSessionQueryOptions } from "@services/auth";
-import { useQuery } from "@tanstack/react-query";
-import { Link, Outlet, RootRoute } from "@tanstack/react-router";
+import { QueryClient, useQuery } from "@tanstack/react-query";
+import { Link, Outlet, rootRouteWithContext } from "@tanstack/react-router";
 import { SignOutButton } from "./SignOutButton/SignOutButton";
 
 const Root = () => {
@@ -21,7 +21,7 @@ const Root = () => {
   );
 };
 
-export const rootRoute = new RootRoute({
+export const rootRoute = rootRouteWithContext<{ queryClient: QueryClient }>()({
   component: Root,
   errorComponent: (error) => {
     return (

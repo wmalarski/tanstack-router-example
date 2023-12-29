@@ -1,6 +1,5 @@
 import { rootRoute } from "@routes/Root/Root";
 import { getRandomBeerQueryOptions } from "@services/beers";
-import { queryClient } from "@services/queryClient";
 import { useQuery } from "@tanstack/react-query";
 import { Route } from "@tanstack/react-router";
 
@@ -18,7 +17,7 @@ const Random = () => {
 export const randomRoute = new Route({
   path: "random",
   component: Random,
-  loader: async () => {
+  loader: async ({context: { queryClient }}) => {
     await queryClient.ensureQueryData(getRandomBeerQueryOptions());
   },
   getParentRoute: () => rootRoute,

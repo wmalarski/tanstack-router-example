@@ -1,6 +1,5 @@
 import { rootRoute } from "@routes/Root/Root";
 import { getSessionQueryOptions } from "@services/auth";
-import { queryClient } from "@services/queryClient";
 import { Route } from "@tanstack/react-router";
 
 const Protected = () => {
@@ -15,7 +14,7 @@ export const protectedRoute = new Route({
   path: "protected",
   component: Protected,
   getParentRoute: () => rootRoute,
-  beforeLoad: async ({ navigate }) => {
+  beforeLoad: async ({ navigate, context: { queryClient } }) => {
     const session = await queryClient.ensureQueryData(getSessionQueryOptions());
 
     if (!session?.user) {
